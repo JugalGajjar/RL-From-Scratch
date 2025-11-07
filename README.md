@@ -29,7 +29,7 @@ Each phase includes:
 
 A companion **website** (hosted via **GitHub Pages**) mirrors this repo with clean tutorials, diagrams, and interactive visuals.
 
-- Live site: **(link here once deployed)**
+- Live site: [jugalgajjar.github.io/RL-From-Scratch/](https://jugalgajjar.github.io/RL-From-Scratch/)
 - Source: [`docs/`](./docs)
 - Built with **Jekyll** and auto-deployed via **GitHub Actions**
 
