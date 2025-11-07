@@ -1,2 +1,3 @@
 .DS_Store
 docs/vendor/
+docs/.jekyllignore
