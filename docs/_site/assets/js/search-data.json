@@ -1,0 +1,576 @@
+{"0": {
+    "doc": 404,
+    "title": "404 — Page Not Found",
+    "content": "Oops! The page you requested doesn’t exist. You can return to the home page or browse the Learning Roadmap. ",
+    "url": "/404.html#404--page-not-found",
+    
+    "relUrl": "/404.html#404--page-not-found"
+  },"1": {
+    "doc": 404,
+    "title": 404,
+    "content": " ",
+    "url": "/404.html",
+    
+    "relUrl": "/404.html"
+  },"2": {
+    "doc": "About",
+    "title": "📘 About This Project",
+    "content": "Reinforcement Learning From Scratch is an open, hands-on curriculum to learn RL from fundamentals to state-of-the-art. Created by Jugal Gajjar MS CS, George Washington University • Research: AI, Graph Learning, Autonomous Systems . | Portfolio: https://jugalgajjar.github.io | LinkedIn: https://www.linkedin.com/in/jugalgajjar | DOI: https://doi.org/10.5281/zenodo.17555229 | . ",
+    "url": "/about.html#-about-this-project",
+    
+    "relUrl": "/about.html#-about-this-project"
+  },"3": {
+    "doc": "About",
+    "title": "About",
+    "content": " ",
+    "url": "/about.html",
+    
+    "relUrl": "/about.html"
+  },"4": {
+    "doc": "Home",
+    "title": "🧠 Reinforcement Learning From Scratch",
+    "content": "Welcome to the companion site for the RL-From-Scratch repository. This website mirrors the repo and provides: . | 📘 Tutorials &amp; explanations per phase | 🧩 Links to code/notebooks | 📊 Visuals &amp; learning curves | 🔍 References to papers and lectures | . ",
+    "url": "/#-reinforcement-learning-from-scratch",
+    
+    "relUrl": "/#-reinforcement-learning-from-scratch"
+  },"5": {
+    "doc": "Home",
+    "title": "🚀 Quick Start",
+    "content": "Begin with Phase 0 — Prerequisites or read the Learning Roadmap. “The best way to understand Reinforcement Learning is to teach it to yourself — by building it.” . ",
+    "url": "/#-quick-start",
+    
+    "relUrl": "/#-quick-start"
+  },"6": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "/",
+    
+    "relUrl": "/"
+  },"7": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "🧩 Phase 0 — Prerequisites",
+    "content": "Build your mathematical and programming foundation for Reinforcement Learning. ",
+    "url": "/phases/phase0.html#-phase-0--prerequisites",
+    
+    "relUrl": "/phases/phase0.html#-phase-0--prerequisites"
+  },"8": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "Topics",
+    "content": ". | Probability, Statistics, Linear Algebra, Calculus | Gradient Descent and Optimization | Python Essentials (NumPy, Matplotlib, Gymnasium) | Basic Machine Learning (Regression, Loss, Backpropagation) | . ",
+    "url": "/phases/phase0.html#topics",
+    
+    "relUrl": "/phases/phase0.html#topics"
+  },"9": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "Mini Projects",
+    "content": ". | Gradient Descent from Scratch | Simple Linear Regression | Visualizing Probability Distributions | . 📁 Source folder: 00-Prerequisites . ",
+    "url": "/phases/phase0.html#mini-projects",
+    
+    "relUrl": "/phases/phase0.html#mini-projects"
+  },"10": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "Phase 0 — Prerequisites",
+    "content": " ",
+    "url": "/phases/phase0.html",
+    
+    "relUrl": "/phases/phase0.html"
+  },"11": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "🎯 Phase 1 — Reinforcement Learning Fundamentals",
+    "content": "Learn how agents interact with environments to maximize cumulative reward. ",
+    "url": "/phases/phase1.html#-phase-1--reinforcement-learning-fundamentals",
+    
+    "relUrl": "/phases/phase1.html#-phase-1--reinforcement-learning-fundamentals"
+  },"12": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "Topics",
+    "content": ". | Agent–Environment Interface | Markov Decision Processes (MDPs) | Bellman Expectation and Optimality Equations | Dynamic Programming (Policy / Value Iteration) | Monte Carlo and Temporal-Difference Learning | . ",
+    "url": "/phases/phase1.html#topics",
+    
+    "relUrl": "/phases/phase1.html#topics"
+  },"13": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "Mini Projects",
+    "content": ". | GridWorld (Policy Iteration) | Blackjack (Monte Carlo Estimation) | . 📁 Source folder: 01-Fundamentals . ",
+    "url": "/phases/phase1.html#mini-projects",
+    
+    "relUrl": "/phases/phase1.html#mini-projects"
+  },"14": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "Phase 1 — Fundamentals",
+    "content": " ",
+    "url": "/phases/phase1.html",
+    
+    "relUrl": "/phases/phase1.html"
+  },"15": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "💡 Phase 2 — Value-Based Methods",
+    "content": "Learn how to estimate optimal action-value functions. ",
+    "url": "/phases/phase2.html#-phase-2--value-based-methods",
+    
+    "relUrl": "/phases/phase2.html#-phase-2--value-based-methods"
+  },"16": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "Topics",
+    "content": ". | ε-Greedy Exploration | SARSA (On-Policy TD Control) | Q-Learning (Off-Policy TD Control) | Experience Replay | Function Approximation (Linear / Neural Networks) | . ",
+    "url": "/phases/phase2.html#topics",
+    
+    "relUrl": "/phases/phase2.html#topics"
+  },"17": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "Mini Projects",
+    "content": ". | FrozenLake-v1 (Tabular Q-Learning) | CartPole-v1 (Neural Q-Learning) | . 📁 Source folder: 02-Value-Based . ",
+    "url": "/phases/phase2.html#mini-projects",
+    
+    "relUrl": "/phases/phase2.html#mini-projects"
+  },"18": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "Phase 2 — Value-Based Methods",
+    "content": " ",
+    "url": "/phases/phase2.html",
+    
+    "relUrl": "/phases/phase2.html"
+  },"19": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "🧭 Phase 3 — Policy-Based Methods",
+    "content": "Directly learn parameterized policies without discrete value tables. ",
+    "url": "/phases/phase3.html#-phase-3--policy-based-methods",
+    
+    "relUrl": "/phases/phase3.html#-phase-3--policy-based-methods"
+  },"20": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "Topics",
+    "content": ". | Policy Gradient Theorem | REINFORCE Algorithm | Variance Reduction (Baselines) | Actor-Critic (A2C) | . ",
+    "url": "/phases/phase3.html#topics",
+    
+    "relUrl": "/phases/phase3.html#topics"
+  },"21": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "Mini Projects",
+    "content": ". | MountainCarContinuous-v0 (REINFORCE) | CartPole (A2C) | . 📁 Source folder: 03-Policy-Based . ",
+    "url": "/phases/phase3.html#mini-projects",
+    
+    "relUrl": "/phases/phase3.html#mini-projects"
+  },"22": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "Phase 3 — Policy-Based Methods",
+    "content": " ",
+    "url": "/phases/phase3.html",
+    
+    "relUrl": "/phases/phase3.html"
+  },"23": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "🤖 Phase 4 — Deep Reinforcement Learning",
+    "content": "Combine neural networks with RL for high-dimensional control tasks. ",
+    "url": "/phases/phase4.html#-phase-4--deep-reinforcement-learning",
+    
+    "relUrl": "/phases/phase4.html#-phase-4--deep-reinforcement-learning"
+  },"24": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "Topics",
+    "content": ". | Deep Q-Network (DQN) and Stability Tricks | Double DQN, Dueling DQN, Prioritized Replay | Continuous Control: DDPG, TD3 | PPO (Proximal Policy Optimization) | SAC (Soft Actor-Critic) | . ",
+    "url": "/phases/phase4.html#topics",
+    
+    "relUrl": "/phases/phase4.html#topics"
+  },"25": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "Mini Projects",
+    "content": ". | Atari Pong (DQN) | LunarLanderContinuous-v2 (DDPG / PPO) | . 📁 Source folder: 04-DeepRL . ",
+    "url": "/phases/phase4.html#mini-projects",
+    
+    "relUrl": "/phases/phase4.html#mini-projects"
+  },"26": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "Phase 4 — Deep Reinforcement Learning",
+    "content": " ",
+    "url": "/phases/phase4.html",
+    
+    "relUrl": "/phases/phase4.html"
+  },"27": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "⚙️ Phase 5 — Advanced Topics",
+    "content": "Explore advanced and hybrid RL paradigms. ",
+    "url": "/phases/phase5.html#%EF%B8%8F-phase-5--advanced-topics",
+    
+    "relUrl": "/phases/phase5.html#️-phase-5--advanced-topics"
+  },"28": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "Topics",
+    "content": ". | Model-Based RL (Dyna-Q, World Models) | Hierarchical RL (Options Framework) | Multi-Agent RL (Cooperative / Competitive) | Meta-RL and Few-Shot Adaptation | Offline RL and Imitation Learning | RLHF (Reinforcement Learning from Human Feedback) | . ",
+    "url": "/phases/phase5.html#topics",
+    
+    "relUrl": "/phases/phase5.html#topics"
+  },"29": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "Mini Projects",
+    "content": ". | MuJoCo Hopper-v4 (Model-Based RL) | Cooperative MARL Simulation | Mini RLHF Text Summarizer | . 📁 Source folder: 05-Advanced . ",
+    "url": "/phases/phase5.html#mini-projects",
+    
+    "relUrl": "/phases/phase5.html#mini-projects"
+  },"30": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "Phase 5 — Advanced Topics",
+    "content": " ",
+    "url": "/phases/phase5.html",
+    
+    "relUrl": "/phases/phase5.html"
+  },"31": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "🚀 Phase 6 — SOTA RL &amp; Research Trends",
+    "content": "Cutting-edge reinforcement learning methods powering modern AI systems. ",
+    "url": "/phases/phase6.html#-phase-6--sota-rl--research-trends",
+    
+    "relUrl": "/phases/phase6.html#-phase-6--sota-rl--research-trends"
+  },"32": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "Algorithms",
+    "content": ". | GRPO — Generalized Reinforcement Policy Optimization | DPO — Direct Preference Optimization | DreamerV3 — Latent world-model-based imagination training | Decision Transformer — Sequence modeling for RL trajectories | GFlowNets — Sampling trajectories proportional to reward | Diffusion Policies — Diffusion-based action generation | RLHF — Reward modeling + policy optimization with human feedback | . ",
+    "url": "/phases/phase6.html#algorithms",
+    
+    "relUrl": "/phases/phase6.html#algorithms"
+  },"33": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "Mini Projects",
+    "content": ". | PPO → GRPO comparison experiment | DreamerV3 pixel-control demo | DPO fine-tuning on preference data | . 📁 Source folder: 06-SOTA-RL . ",
+    "url": "/phases/phase6.html#mini-projects",
+    
+    "relUrl": "/phases/phase6.html#mini-projects"
+  },"34": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "Phase 6 — SOTA RL & Research Trends",
+    "content": " ",
+    "url": "/phases/phase6.html",
+    
+    "relUrl": "/phases/phase6.html"
+  },"35": {
+    "doc": "Phase 7 — Applications",
+    "title": "🌍 Phase 7 — Applications",
+    "content": "Apply reinforcement learning to practical, cross-domain problems. ",
+    "url": "/phases/phase7.html#-phase-7--applications",
+    
+    "relUrl": "/phases/phase7.html#-phase-7--applications"
+  },"36": {
+    "doc": "Phase 7 — Applications",
+    "title": "Domains",
+    "content": ". | Robotics (Control &amp; Navigation) | Game AI (Unity ML-Agents, Chess, Go) | Recommender Systems | Finance (Trading &amp; Portfolio Optimization) | Code Agents &amp; Autonomous Systems | . ",
+    "url": "/phases/phase7.html#domains",
+    
+    "relUrl": "/phases/phase7.html#domains"
+  },"37": {
+    "doc": "Phase 7 — Applications",
+    "title": "Mini Projects",
+    "content": ". | Robotic Arm Control (PyBullet) | Stock Trading Bot (PPO) | Game Agent with Custom Rewards | . 📁 Source folder: 07-Applications . ",
+    "url": "/phases/phase7.html#mini-projects",
+    
+    "relUrl": "/phases/phase7.html#mini-projects"
+  },"38": {
+    "doc": "Phase 7 — Applications",
+    "title": "Phase 7 — Applications",
+    "content": " ",
+    "url": "/phases/phase7.html",
+    
+    "relUrl": "/phases/phase7.html"
+  },"39": {
+    "doc": "Learning Roadmap",
+    "title": "🗺️ Learning Roadmap",
+    "content": "| Phase | Title | Description | . | 0 | Prerequisites | Math, probability, calculus, Python, ML basics | . | 1 | Fundamentals | MDPs, Bellman equations, DP, Monte Carlo, TD | . | 2 | Value-Based Methods | SARSA, Q-Learning, exploration, function approximation | . | 3 | Policy-Based Methods | Policy Gradients, REINFORCE, Actor-Critic | . | 4 | Deep RL | DQN, DDQN, Dueling DQN, DDPG, TD3, PPO, SAC | . | 5 | Advanced Topics | Model-Based, Hierarchical, Multi-Agent, Meta-RL, Offline RL, RLHF | . | 6 | SOTA RL &amp; Research Trends | GRPO, DPO, DreamerV3, Decision Transformer, GFlowNets, Diffusion Policies | . | 7 | Applications | Robotics, Games, Recommenders, Finance, Code Agents | . ",
+    "url": "/roadmap.html#%EF%B8%8F-learning-roadmap",
+    
+    "relUrl": "/roadmap.html#️-learning-roadmap"
+  },"40": {
+    "doc": "Learning Roadmap",
+    "title": "Learning Roadmap",
+    "content": " ",
+    "url": "/roadmap.html",
+    
+    "relUrl": "/roadmap.html"
+  },"41": {
+    "doc": 404,
+    "title": "404 — Page Not Found",
+    "content": "Oops! The page you requested doesn’t exist. You can return to the home page or browse the Learning Roadmap. ",
+    "url": "/404.html#404--page-not-found",
+    
+    "relUrl": "/404.html#404--page-not-found"
+  },"42": {
+    "doc": 404,
+    "title": 404,
+    "content": " ",
+    "url": "/404.html",
+    
+    "relUrl": "/404.html"
+  },"43": {
+    "doc": "About",
+    "title": "📘 About This Project",
+    "content": "Reinforcement Learning From Scratch is an open, hands-on curriculum to learn RL from fundamentals to state-of-the-art. Created by Jugal Gajjar MS CS, George Washington University • Research: AI, Graph Learning, Autonomous Systems . | Portfolio: https://jugalgajjar.github.io | LinkedIn: https://www.linkedin.com/in/jugalgajjar | DOI: https://doi.org/10.5281/zenodo.17555229 | . ",
+    "url": "/about.html#-about-this-project",
+    
+    "relUrl": "/about.html#-about-this-project"
+  },"44": {
+    "doc": "About",
+    "title": "About",
+    "content": " ",
+    "url": "/about.html",
+    
+    "relUrl": "/about.html"
+  },"45": {
+    "doc": "Home",
+    "title": "🧠 Reinforcement Learning From Scratch",
+    "content": "Welcome to the companion site for the RL-From-Scratch repository. This website mirrors the repo and provides: . | 📘 Tutorials &amp; explanations per phase | 🧩 Links to code/notebooks | 📊 Visuals &amp; learning curves | 🔍 References to papers and lectures | . ",
+    "url": "/#-reinforcement-learning-from-scratch",
+    
+    "relUrl": "/#-reinforcement-learning-from-scratch"
+  },"46": {
+    "doc": "Home",
+    "title": "🚀 Quick Start",
+    "content": "Begin with Phase 0 — Prerequisites or read the Learning Roadmap. “The best way to understand Reinforcement Learning is to teach it to yourself — by building it.” . ",
+    "url": "/#-quick-start",
+    
+    "relUrl": "/#-quick-start"
+  },"47": {
+    "doc": "Home",
+    "title": "Home",
+    "content": " ",
+    "url": "/",
+    
+    "relUrl": "/"
+  },"48": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "🧩 Phase 0 — Prerequisites",
+    "content": "Build your mathematical and programming foundation for Reinforcement Learning. ",
+    "url": "/phases/phase0.html#-phase-0--prerequisites",
+    
+    "relUrl": "/phases/phase0.html#-phase-0--prerequisites"
+  },"49": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "Topics",
+    "content": ". | Probability, Statistics, Linear Algebra, Calculus | Gradient Descent and Optimization | Python Essentials (NumPy, Matplotlib, Gymnasium) | Basic Machine Learning (Regression, Loss, Backpropagation) | . ",
+    "url": "/phases/phase0.html#topics",
+    
+    "relUrl": "/phases/phase0.html#topics"
+  },"50": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "Mini Projects",
+    "content": ". | Gradient Descent from Scratch | Simple Linear Regression | Visualizing Probability Distributions | . 📁 Source folder: 00-Prerequisites . ",
+    "url": "/phases/phase0.html#mini-projects",
+    
+    "relUrl": "/phases/phase0.html#mini-projects"
+  },"51": {
+    "doc": "Phase 0 — Prerequisites",
+    "title": "Phase 0 — Prerequisites",
+    "content": " ",
+    "url": "/phases/phase0.html",
+    
+    "relUrl": "/phases/phase0.html"
+  },"52": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "🎯 Phase 1 — Reinforcement Learning Fundamentals",
+    "content": "Learn how agents interact with environments to maximize cumulative reward. ",
+    "url": "/phases/phase1.html#-phase-1--reinforcement-learning-fundamentals",
+    
+    "relUrl": "/phases/phase1.html#-phase-1--reinforcement-learning-fundamentals"
+  },"53": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "Topics",
+    "content": ". | Agent–Environment Interface | Markov Decision Processes (MDPs) | Bellman Expectation and Optimality Equations | Dynamic Programming (Policy / Value Iteration) | Monte Carlo and Temporal-Difference Learning | . ",
+    "url": "/phases/phase1.html#topics",
+    
+    "relUrl": "/phases/phase1.html#topics"
+  },"54": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "Mini Projects",
+    "content": ". | GridWorld (Policy Iteration) | Blackjack (Monte Carlo Estimation) | . 📁 Source folder: 01-Fundamentals . ",
+    "url": "/phases/phase1.html#mini-projects",
+    
+    "relUrl": "/phases/phase1.html#mini-projects"
+  },"55": {
+    "doc": "Phase 1 — Fundamentals",
+    "title": "Phase 1 — Fundamentals",
+    "content": " ",
+    "url": "/phases/phase1.html",
+    
+    "relUrl": "/phases/phase1.html"
+  },"56": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "💡 Phase 2 — Value-Based Methods",
+    "content": "Learn how to estimate optimal action-value functions. ",
+    "url": "/phases/phase2.html#-phase-2--value-based-methods",
+    
+    "relUrl": "/phases/phase2.html#-phase-2--value-based-methods"
+  },"57": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "Topics",
+    "content": ". | ε-Greedy Exploration | SARSA (On-Policy TD Control) | Q-Learning (Off-Policy TD Control) | Experience Replay | Function Approximation (Linear / Neural Networks) | . ",
+    "url": "/phases/phase2.html#topics",
+    
+    "relUrl": "/phases/phase2.html#topics"
+  },"58": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "Mini Projects",
+    "content": ". | FrozenLake-v1 (Tabular Q-Learning) | CartPole-v1 (Neural Q-Learning) | . 📁 Source folder: 02-Value-Based . ",
+    "url": "/phases/phase2.html#mini-projects",
+    
+    "relUrl": "/phases/phase2.html#mini-projects"
+  },"59": {
+    "doc": "Phase 2 — Value-Based Methods",
+    "title": "Phase 2 — Value-Based Methods",
+    "content": " ",
+    "url": "/phases/phase2.html",
+    
+    "relUrl": "/phases/phase2.html"
+  },"60": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "🧭 Phase 3 — Policy-Based Methods",
+    "content": "Directly learn parameterized policies without discrete value tables. ",
+    "url": "/phases/phase3.html#-phase-3--policy-based-methods",
+    
+    "relUrl": "/phases/phase3.html#-phase-3--policy-based-methods"
+  },"61": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "Topics",
+    "content": ". | Policy Gradient Theorem | REINFORCE Algorithm | Variance Reduction (Baselines) | Actor-Critic (A2C) | . ",
+    "url": "/phases/phase3.html#topics",
+    
+    "relUrl": "/phases/phase3.html#topics"
+  },"62": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "Mini Projects",
+    "content": ". | MountainCarContinuous-v0 (REINFORCE) | CartPole (A2C) | . 📁 Source folder: 03-Policy-Based . ",
+    "url": "/phases/phase3.html#mini-projects",
+    
+    "relUrl": "/phases/phase3.html#mini-projects"
+  },"63": {
+    "doc": "Phase 3 — Policy-Based Methods",
+    "title": "Phase 3 — Policy-Based Methods",
+    "content": " ",
+    "url": "/phases/phase3.html",
+    
+    "relUrl": "/phases/phase3.html"
+  },"64": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "🤖 Phase 4 — Deep Reinforcement Learning",
+    "content": "Combine neural networks with RL for high-dimensional control tasks. ",
+    "url": "/phases/phase4.html#-phase-4--deep-reinforcement-learning",
+    
+    "relUrl": "/phases/phase4.html#-phase-4--deep-reinforcement-learning"
+  },"65": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "Topics",
+    "content": ". | Deep Q-Network (DQN) and Stability Tricks | Double DQN, Dueling DQN, Prioritized Replay | Continuous Control: DDPG, TD3 | PPO (Proximal Policy Optimization) | SAC (Soft Actor-Critic) | . ",
+    "url": "/phases/phase4.html#topics",
+    
+    "relUrl": "/phases/phase4.html#topics"
+  },"66": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "Mini Projects",
+    "content": ". | Atari Pong (DQN) | LunarLanderContinuous-v2 (DDPG / PPO) | . 📁 Source folder: 04-DeepRL . ",
+    "url": "/phases/phase4.html#mini-projects",
+    
+    "relUrl": "/phases/phase4.html#mini-projects"
+  },"67": {
+    "doc": "Phase 4 — Deep Reinforcement Learning",
+    "title": "Phase 4 — Deep Reinforcement Learning",
+    "content": " ",
+    "url": "/phases/phase4.html",
+    
+    "relUrl": "/phases/phase4.html"
+  },"68": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "⚙️ Phase 5 — Advanced Topics",
+    "content": "Explore advanced and hybrid RL paradigms. ",
+    "url": "/phases/phase5.html#%EF%B8%8F-phase-5--advanced-topics",
+    
+    "relUrl": "/phases/phase5.html#️-phase-5--advanced-topics"
+  },"69": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "Topics",
+    "content": ". | Model-Based RL (Dyna-Q, World Models) | Hierarchical RL (Options Framework) | Multi-Agent RL (Cooperative / Competitive) | Meta-RL and Few-Shot Adaptation | Offline RL and Imitation Learning | RLHF (Reinforcement Learning from Human Feedback) | . ",
+    "url": "/phases/phase5.html#topics",
+    
+    "relUrl": "/phases/phase5.html#topics"
+  },"70": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "Mini Projects",
+    "content": ". | MuJoCo Hopper-v4 (Model-Based RL) | Cooperative MARL Simulation | Mini RLHF Text Summarizer | . 📁 Source folder: 05-Advanced . ",
+    "url": "/phases/phase5.html#mini-projects",
+    
+    "relUrl": "/phases/phase5.html#mini-projects"
+  },"71": {
+    "doc": "Phase 5 — Advanced Topics",
+    "title": "Phase 5 — Advanced Topics",
+    "content": " ",
+    "url": "/phases/phase5.html",
+    
+    "relUrl": "/phases/phase5.html"
+  },"72": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "🚀 Phase 6 — SOTA RL &amp; Research Trends",
+    "content": "Cutting-edge reinforcement learning methods powering modern AI systems. ",
+    "url": "/phases/phase6.html#-phase-6--sota-rl--research-trends",
+    
+    "relUrl": "/phases/phase6.html#-phase-6--sota-rl--research-trends"
+  },"73": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "Algorithms",
+    "content": ". | GRPO — Generalized Reinforcement Policy Optimization | DPO — Direct Preference Optimization | DreamerV3 — Latent world-model-based imagination training | Decision Transformer — Sequence modeling for RL trajectories | GFlowNets — Sampling trajectories proportional to reward | Diffusion Policies — Diffusion-based action generation | RLHF — Reward modeling + policy optimization with human feedback | . ",
+    "url": "/phases/phase6.html#algorithms",
+    
+    "relUrl": "/phases/phase6.html#algorithms"
+  },"74": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "Mini Projects",
+    "content": ". | PPO → GRPO comparison experiment | DreamerV3 pixel-control demo | DPO fine-tuning on preference data | . 📁 Source folder: 06-SOTA-RL . ",
+    "url": "/phases/phase6.html#mini-projects",
+    
+    "relUrl": "/phases/phase6.html#mini-projects"
+  },"75": {
+    "doc": "Phase 6 — SOTA RL & Research Trends",
+    "title": "Phase 6 — SOTA RL & Research Trends",
+    "content": " ",
+    "url": "/phases/phase6.html",
+    
+    "relUrl": "/phases/phase6.html"
+  },"76": {
+    "doc": "Phase 7 — Applications",
+    "title": "🌍 Phase 7 — Applications",
+    "content": "Apply reinforcement learning to practical, cross-domain problems. ",
+    "url": "/phases/phase7.html#-phase-7--applications",
+    
+    "relUrl": "/phases/phase7.html#-phase-7--applications"
+  },"77": {
+    "doc": "Phase 7 — Applications",
+    "title": "Domains",
+    "content": ". | Robotics (Control &amp; Navigation) | Game AI (Unity ML-Agents, Chess, Go) | Recommender Systems | Finance (Trading &amp; Portfolio Optimization) | Code Agents &amp; Autonomous Systems | . ",
+    "url": "/phases/phase7.html#domains",
+    
+    "relUrl": "/phases/phase7.html#domains"
+  },"78": {
+    "doc": "Phase 7 — Applications",
+    "title": "Mini Projects",
+    "content": ". | Robotic Arm Control (PyBullet) | Stock Trading Bot (PPO) | Game Agent with Custom Rewards | . 📁 Source folder: 07-Applications . ",
+    "url": "/phases/phase7.html#mini-projects",
+    
+    "relUrl": "/phases/phase7.html#mini-projects"
+  },"79": {
+    "doc": "Phase 7 — Applications",
+    "title": "Phase 7 — Applications",
+    "content": " ",
+    "url": "/phases/phase7.html",
+    
+    "relUrl": "/phases/phase7.html"
+  },"80": {
+    "doc": "Learning Roadmap",
+    "title": "🗺️ Learning Roadmap",
+    "content": "| Phase | Title | Description | . | 0 | Prerequisites | Math, probability, calculus, Python, ML basics | . | 1 | Fundamentals | MDPs, Bellman equations, DP, Monte Carlo, TD | . | 2 | Value-Based Methods | SARSA, Q-Learning, exploration, function approximation | . | 3 | Policy-Based Methods | Policy Gradients, REINFORCE, Actor-Critic | . | 4 | Deep RL | DQN, DDQN, Dueling DQN, DDPG, TD3, PPO, SAC | . | 5 | Advanced Topics | Model-Based, Hierarchical, Multi-Agent, Meta-RL, Offline RL, RLHF | . | 6 | SOTA RL &amp; Research Trends | GRPO, DPO, DreamerV3, Decision Transformer, GFlowNets, Diffusion Policies | . | 7 | Applications | Robotics, Games, Recommenders, Finance, Code Agents | . ",
+    "url": "/roadmap.html#%EF%B8%8F-learning-roadmap",
+    
+    "relUrl": "/roadmap.html#️-learning-roadmap"
+  },"81": {
+    "doc": "Learning Roadmap",
+    "title": "Learning Roadmap",
+    "content": " ",
+    "url": "/roadmap.html",
+    
+    "relUrl": "/roadmap.html"
+  }
+}

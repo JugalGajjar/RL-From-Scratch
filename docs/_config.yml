@@ -1,0 +1,44 @@
+# docs/_config.yml
+title: RL From Scratch
+description: A complete hands-on roadmap to learn RL — from first principles to state-of-the-art.
+url: "https://jugalgajjar.github.io"
+baseurl: "/RL-From-Scratch"   # keep this exact casing to match the repo name
+remote_theme: just-the-docs/just-the-docs
+
+# Just the Docs settings
+logo:                       # (optional) path under /docs
+color_scheme: nil           # or "dark" if you prefer
+search_enabled: true
+heading_anchors: true
+
+# Top nav (header)
+nav_external_links:
+  - title: GitHub Repo
+    url: https://github.com/JugalGajjar/RL-From-Scratch
+  - title: Zenodo DOI
+    url: https://doi.org/10.5281/zenodo.17555229
+
+# Sidebar structure (ordered)
+just_the_docs:
+  collections:
+    pages:
+      name: Pages
+      nav_exclude: true
+
+# Build
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+
+# Exclude anything not needed
+# exclude:
+#   - README.md
+exclude:
+  - vendor/
+  - _site/
+  - .jekyll-cache/
+  - .sass-cache/
+  - node_modules/
+  - Gemfile
+  - Gemfile.lock

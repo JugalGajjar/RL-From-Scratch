@@ -1,0 +1,7 @@
+# Ignore vendored gems and other build artifacts
+vendor/
+_bundle/
+node_modules/
+_site/
+.sass-cache/
+.jekyll-cache/

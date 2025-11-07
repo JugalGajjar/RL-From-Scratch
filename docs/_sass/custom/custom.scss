@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+  :root {
+    /* Sidebar width: min 15%, ideal 20%, max 25% of viewport width */
+    --sidebar-w: clamp(15%, 20vw, 25%);
+  }
+
+  .side-bar {
+    width: var(--sidebar-w) !important;
+  }
+
+  .main-header {
+    margin-left: var(--sidebar-w) !important;
+  }
+}
