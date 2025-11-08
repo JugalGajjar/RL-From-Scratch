@@ -29,7 +29,7 @@ Each phase includes:
 
 A companion **website** (hosted via **GitHub Pages**) mirrors this repo with clean tutorials, diagrams, and interactive visuals.
 
-- Live site: **(link here once deployed)**
+- Live site: [jugalgajjar.github.io/RL-From-Scratch/](https://jugalgajjar.github.io/RL-From-Scratch/)
 - Source: [`docs/`](./docs)
 - Built with **Jekyll** and auto-deployed via **GitHub Actions**
 
@@ -244,8 +244,13 @@ If you’d like to add an implementation, visualization, or paper reproduction:
 
 ## 🧠 License & Citation
 
-This repository is open-sourced under the MIT License.
-If you find it useful in research or teaching, please consider citing or linking back.
+This repository is open-sourced under the **MIT License**.  
+If you use this project in your research, coursework, or publications, please cite it as:
+
+> **Jugal Gajjar. (2025). _JugalGajjar/RL-From-Scratch: v0.1_ (v0.1). Zenodo.**  
+> [https://doi.org/10.5281/zenodo.17555229](https://doi.org/10.5281/zenodo.17555229)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17555229.svg)](https://doi.org/10.5281/zenodo.17555229)
 
 ---
 
