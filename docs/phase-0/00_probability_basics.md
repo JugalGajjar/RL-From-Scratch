@@ -119,7 +119,7 @@ f_X(x) = \frac{1}{\sqrt{2\pi}} e^{-x^2/2}.
 $$
 
 In **RL**, PDFs appear when:
-- policies are **continuous** (e.g., Gaussian policy $\pi(a|s) = \mathcal{N}(\mu(s), \sigma^2(s))$)
+- policies are **continuous** (e.g., Gaussian policy $\pi(a\|s) = \mathcal{N}(\mu(s), \sigma^2(s))$)
 - environments have **continuous state or action spaces**
 
 
