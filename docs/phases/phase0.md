@@ -16,7 +16,7 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 - Gradient Descent and Optimization  
 - Python Essentials (scikit-learn, PyTorch, Gymnasium)  
 - Basic Machine Learning (Regression, Loss, Backpropagation)
-- Deep Learning (Neuron, MLP, CNN)
+- Basic Deep Learning (Neuron, MLP, CNN)
 - Introduction to Markov Chains
 
 ## Mini Projects
