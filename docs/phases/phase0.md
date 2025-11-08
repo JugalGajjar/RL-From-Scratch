@@ -12,6 +12,7 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 ## Topics
 - Probability, Statistics, Linear Algebra, Calculus  
   → Start with [**Probability Basics ▸**](../phase-0/00_probability_basics.md)
+  → Continue with [**Linear Algebra & Matrix Calculus ▸**](../phase-0/01_linear_algebra_calc.md)
 - Gradient Descent and Optimization  
 - Python Essentials (NumPy, Matplotlib, Gymnasium)  
 - Basic Machine Learning (Regression, Loss, Backpropagation)
