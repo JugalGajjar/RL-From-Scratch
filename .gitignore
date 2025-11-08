@@ -1,3 +1,4 @@
 .DS_Store
 docs/vendor/
+docs/.jekyllignore
 docs/.bundle
