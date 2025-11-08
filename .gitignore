@@ -1,4 +1,20 @@
+# macOS
 .DS_Store
-docs/vendor/
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+# Conda bundles
+.envrc
+.venv/
+# Jupyter
+*.nbconvert.ipynb
+# Build/site
+docs/_site/
 docs/.jekyllignore
+docs/.jekyll-cache/
+docs/vendor/
 docs/.bundle
+# VSCode
+.vscode/
