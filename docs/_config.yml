@@ -30,6 +30,9 @@ markdown: kramdown
 highlighter: rouge
 kramdown:
   input: GFM
+  math_engine: mathjax
+  syntax_highlighter_opts:
+    disable: true
 
 # Exclude anything not needed
 # exclude:
