@@ -25,6 +25,9 @@ just_the_docs:
       name: Pages
       nav_exclude: true
 
+include:
+  - _includes/head_custom.html
+
 # Build
 markdown: kramdown
 highlighter: rouge
