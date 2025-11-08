@@ -3,7 +3,7 @@ layout: default
 title: Probability Basics
 parent: Phase 0 — Prerequisites
 nav_order: 1
-has_toc: false
+has_toc: true
 ---
 
 # Probability Basics
