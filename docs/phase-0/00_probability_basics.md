@@ -348,10 +348,11 @@ plt.step(x_ecdf, y_ecdf, where='post')
 plt.title("Bernoulli(0.3) — ECDF")
 plt.tight_layout(); plt.show()
 ```
-
-    {'est_mean': np.float64(0.3023), 'theory_mean': 0.3}
-    {'est_var': np.float64(0.2109), 'theory_var': 0.21}
-
+Output:
+```
+{'est_mean': np.float64(0.3023), 'theory_mean': 0.3}
+{'est_var': np.float64(0.2109), 'theory_var': 0.21}
+```
 
 
     
@@ -1031,9 +1032,11 @@ est = disease[pos==1].mean()
 print("Monte Carlo estimate ≈", round(float(est), 4))
 ```
 
-    Bayes (closed-form):  P(D|+) = 0.161
-    Monte Carlo estimate ≈ 0.1617
-
+Output:
+```
+Bayes (closed-form):  P(D|+) = 0.161
+Monte Carlo estimate ≈ 0.1617
+```
 
 ## Key Takeaways
 
