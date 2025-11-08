@@ -1,0 +1,37 @@
+name: rlfs
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  # numerics & data
+  - numpy
+  - scipy
+  - pandas
+  # viz
+  - matplotlib
+  - seaborn
+  # jupyter
+  - jupyterlab
+  - ipykernel
+  # RL envs (classic + Box2D)
+  - gymnasium
+  - swig
+  - box2d-py
+  # utilities
+  - tqdm
+  - rich
+  - pyyaml
+  - tyro
+  - black
+  - isort
+  - mypy
+  - pytest
+  - pip:
+      - torch==2.4.* 
+      - torchvision==0.19.* 
+      - torchaudio==2.4.*
+      - stable-baselines3==2.3.* 
+      - gymnasium[box2d]
+      - notebook
+      - plotly
