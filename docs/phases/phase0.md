@@ -2,6 +2,7 @@
 layout: default
 title: Phase 0 — Prerequisites
 nav_order: 10
+has_toc: false
 ---
 
 # 🧩 Phase 0 — Prerequisites
