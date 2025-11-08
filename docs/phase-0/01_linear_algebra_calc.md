@@ -892,4 +892,4 @@ Output:
 
 > Linear algebra and matrix calculus are the foundation of neural function approximation, gradient-based policy updates, and value estimation in reinforcement learning.
 
-**Next:** `02_gradient_descent_from_scratch.ipynb` → implement optimization from first principles: gradients, learning rate, convergence, and visualization of loss surfaces.
+**Next:** `02_gradient_descent_optimize.ipynb` → implement optimization from first principles: gradients, learning rate, convergence, and visualization of loss surfaces.
