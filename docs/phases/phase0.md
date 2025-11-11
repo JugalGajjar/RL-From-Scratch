@@ -11,9 +11,10 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 
 ## Topics
 - Probability, Statistics, Linear Algebra, Calculus  
-  → Start with [**Probability Basics ▸**](../phase-0/00_probability_basics.md)\\
+  → Start with [**Probability Basics ▸**](../phase-0/00_probability_basics.md) \\
   → Continue with [**Linear Algebra & Matrix Calculus ▸**](../phase-0/01_linear_algebra_calc.md)
-- Gradient Descent and Optimization  
+- Gradient Descent and Optimization \\
+  → Explore [**Gradient Descent & Optimization ▸**](../phase-0/02_gradient_descent_optimize.md)
 - Python Essentials (scikit-learn, PyTorch, Gymnasium)  
 - Basic Machine Learning (Regression, Loss, Backpropagation)
 - Basic Deep Learning (Neuron, MLP, CNN)
