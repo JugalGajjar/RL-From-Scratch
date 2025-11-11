@@ -28,6 +28,7 @@ dependencies:
   - mypy
   - pytest
   - pip:
+      - scikit-learn==1.7.*
       - torch==2.4.* 
       - torchvision==0.19.* 
       - torchaudio==2.4.*
