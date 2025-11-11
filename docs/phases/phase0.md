@@ -21,7 +21,6 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 - Introduction to Markov Chains
 
 ## Mini Projects
-- Gradient Descent from Scratch  
 - Simple Linear Regression  
 - Image Classification using CNN
 
