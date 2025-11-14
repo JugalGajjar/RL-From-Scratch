@@ -8,7 +8,7 @@ nav_order: 2
 
 | Phase | Title | Description |
 |:--:|:--|:--|
-| **0** | [Prerequisites](./phases/phase0) | Math, probability, calculus, Python, ML & DL basics, Markov chains |
+| **0** | [Prerequisites](./phases/phase0) | Probability, Linear Algebra, Calculus, Python, ML & DL basics, Markov Chains |
 | **1** | [Fundamentals](./phases/phase1) | MDPs, Bellman equations, DP, Monte Carlo, TD |
 | **2** | [Value-Based Methods](./phases/phase2) | SARSA, Q-Learning, exploration, function approximation |
 | **3** | [Policy-Based Methods](./phases/phase3) | Policy Gradients, REINFORCE, Actor-Critic |
