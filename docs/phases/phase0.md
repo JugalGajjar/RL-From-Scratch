@@ -29,7 +29,7 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 ## Mini Projects
 - End-to-End Linear Regression  
   → Try it here: [**Linear Regression Project ▸**](../phase-0/00_linear_regression_project.md)
-- Image Classification using CNN
+- Image Classification using CNN \\
   → Explore here: [**CNN Image Classification ▸**](../phase-0/01_cnn_image_classification.md)
 
 📁 Source folder:  
