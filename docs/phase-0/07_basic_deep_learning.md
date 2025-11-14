@@ -104,11 +104,13 @@ def drelu(z): return (z>0).astype(float)
 
 plt.figure(figsize=(10,3.5))
 plt.subplot(1,2,1)
-plt.plot(z, sigmoid(z), label="sigmoid"); plt.plot(z, tanh(z), label="tanh"); plt.plot(z, relu(z), label="ReLU")
+plt.plot(z, sigmoid(z), label="sigmoid"); plt.plot(z, tanh(z), label="tanh"); plt.plot(z, relu(z), 
+label="ReLU")
 plt.title("Activations"); plt.legend()
 
 plt.subplot(1,2,2)
-plt.plot(z, dsigmoid(z), label="σ'"); plt.plot(z, dtanh(z), label="tanh'"); plt.plot(z, drelu(z), label="ReLU'")
+plt.plot(z, dsigmoid(z), label="σ'"); plt.plot(z, dtanh(z), label="tanh'"); plt.plot(z, drelu(z), 
+label="ReLU'")
 plt.title("Derivatives"); plt.legend()
 plt.tight_layout(); plt.show()
 ```
@@ -156,8 +158,10 @@ Here, minimizing cross-entropy mirrors **maximizing policy likelihood** in polic
 X, y = make_moons(n_samples=2000, noise=0.25, random_state=0)
 X = X.astype(np.float32); y = y.astype(np.int64)
 X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, stratify=y, random_state=42)
-train_dl = DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), batch_size=64, shuffle=True)
-test_dl  = DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), batch_size=256, shuffle=False)
+train_dl = DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), batch_size=64, 
+shuffle=True)
+test_dl  = DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), batch_size=256, 
+shuffle=False)
 
 class MLP(nn.Module):
     def __init__(self, in_dim=2, hid=64, out_dim=2, pdrop=0.0, use_bn=False):
@@ -201,9 +205,11 @@ print({"train": train_hist[-1], "test": test_hist[-1]})
 
 # Curves
 plt.figure(figsize=(10,3.5))
-plt.subplot(1,2,1); plt.plot([l for l,_ in train_hist], label="train"); plt.plot([l for l,_ in test_hist], label="test")
+plt.subplot(1,2,1); plt.plot([l for l,_ in train_hist], label="train")
+plt.plot([l for l,_ in test_hist], label="test")
 plt.title("Loss"); plt.legend()
-plt.subplot(1,2,2); plt.plot([a for _,a in train_hist], label="train"); plt.plot([a for _,a in test_hist], label="test")
+plt.subplot(1,2,2); plt.plot([a for _,a in train_hist], label="train")
+plt.plot([a for _,a in test_hist], label="test")
 plt.title("Accuracy"); plt.legend(); plt.tight_layout(); plt.show()
 
 # Decision boundary
@@ -333,8 +339,10 @@ for ep in range(5): # keep it light; bump to 10–15 for stronger accuracy
 print("MNIST final:", {"train": mnist_hist["train"][-1], "test": mnist_hist["test"][-1]})
 
 plt.figure(figsize=(10,3.5))
-plt.subplot(1,2,1); plt.plot([l for l,_ in mnist_hist["train"]], label="train"); plt.plot([l for l,_ in mnist_hist["test"]], label="test"); plt.title("Loss"); plt.legend()
-plt.subplot(1,2,2); plt.plot([a for _,a in mnist_hist["train"]], label="train"); plt.plot([a for _,a in mnist_hist["test"]], label="test"); plt.title("Accuracy"); plt.legend()
+plt.subplot(1,2,1); plt.plot([l for l,_ in mnist_hist["train"]], label="train")
+plt.plot([l for l,_ in mnist_hist["test"]], label="test"); plt.title("Loss"); plt.legend()
+plt.subplot(1,2,2); plt.plot([a for _,a in mnist_hist["train"]], label="train")
+plt.plot([a for _,a in mnist_hist["test"]], label="test"); plt.title("Accuracy"); plt.legend()
 plt.tight_layout(); plt.show()
 
 # Peek feature maps
@@ -420,8 +428,10 @@ def train_mlp(pdrop=0.0, wd=0.0):
     optm = torch.optim.AdamW(m.parameters(), lr=3e-3, weight_decay=wd)
     hist=[]
     for ep in range(25):
-        tr = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), batch_size=64, shuffle=True), True)
-        te = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), batch_size=256, shuffle=False), False)
+        tr = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), 
+        batch_size=64, shuffle=True), True)
+        te = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), 
+        batch_size=256, shuffle=False), False)
         hist.append((tr, te))
     return m, hist
 
