@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Phase 0 — Prerequisites
-nav_order: 10
+nav_order: 12
 has_toc: false
 ---
 
@@ -28,9 +28,9 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 
 ## Mini Projects
 - End-to-End Linear Regression  
-  → Try it here: [**Linear Regression Project ▸**](../phase-0/00_linear_regression_project.md)
+  → Try it here: [**Linear Regression Project ▸**](../phase-0/09_linear_regression_project.md)
 - Image Classification using CNN \\
-  → Explore here: [**CNN Image Classification ▸**](../phase-0/01_cnn_image_classification.md)
+  → Explore here: [**CNN Image Classification ▸**](../phase-0/010_cnn_image_classification_project.md)
 
 📁 Source folder:  
 [00-Prerequisites](https://github.com/JugalGajjar/RL-From-Scratch/tree/main/00-Prerequisites)
