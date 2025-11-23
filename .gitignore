@@ -16,5 +16,7 @@ docs/.jekyllignore
 docs/.jekyll-cache/
 docs/vendor/
 docs/.bundle
+# Gradio
+.gradio/
 # VSCode
 .vscode/
