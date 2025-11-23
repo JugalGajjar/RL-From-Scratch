@@ -2,7 +2,7 @@
 layout: default
 title: PyTorch Basics
 parent: Phase 0 — Prerequisites
-nav_order: 1
+nav_order: 5
 has_toc: true
 ---
 

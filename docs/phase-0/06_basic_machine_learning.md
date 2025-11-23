@@ -2,7 +2,7 @@
 layout: default
 title: Basic Machine Learning
 parent: Phase 0 — Prerequisites
-nav_order: 1
+nav_order: 7
 has_toc: true
 ---
 

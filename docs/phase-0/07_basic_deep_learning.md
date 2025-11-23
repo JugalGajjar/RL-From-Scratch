@@ -2,7 +2,7 @@
 layout: default
 title: Basic Deep Learning
 parent: Phase 0 — Prerequisites
-nav_order: 2
+nav_order: 8
 has_toc: true
 ---
 

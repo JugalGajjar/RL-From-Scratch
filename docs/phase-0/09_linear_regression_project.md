@@ -2,7 +2,7 @@
 layout: default
 title: Linear Regression Project
 parent: Phase 0 — Prerequisites
-nav_order: 2
+nav_order: 10
 has_toc: true
 ---
 

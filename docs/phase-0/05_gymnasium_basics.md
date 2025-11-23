@@ -2,7 +2,7 @@
 layout: default
 title: Gymnasium Basics
 parent: Phase 0 — Prerequisites
-nav_order: 1
+nav_order: 6
 has_toc: true
 ---
 

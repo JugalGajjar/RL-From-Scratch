@@ -2,7 +2,7 @@
 layout: default
 title: Gradient Descent & Optimization
 parent: Phase 0 — Prerequisites
-nav_order: 1
+nav_order: 3
 has_toc: true
 ---
 

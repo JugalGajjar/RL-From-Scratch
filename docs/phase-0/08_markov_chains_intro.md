@@ -2,7 +2,7 @@
 layout: default
 title: Introduction to Markov Chains
 parent: Phase 0 — Prerequisites
-nav_order: 2
+nav_order: 9
 has_toc: true
 ---
 

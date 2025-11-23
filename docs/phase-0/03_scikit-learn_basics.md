@@ -2,7 +2,7 @@
 layout: default
 title: scikit-learn Basics
 parent: Phase 0 — Prerequisites
-nav_order: 1
+nav_order: 4
 has_toc: true
 ---
 
