@@ -559,12 +559,12 @@ demo.launch(share=False)
 ```
 Output:
 ```
-    * Running on local URL:  http://127.0.0.1:7860
-    * To create a public link, set `share=True` in `launch()`.
+* Running on local URL:  http://127.0.0.1:7860
+* To create a public link, set `share=True` in `launch()`.
 ```
+**NOTE:** The Gradio link has been updated to the Hugging Face Space link to ensure the reproducibility of the model trained in this tutorial.
 
-
-<div><iframe src="http://127.0.0.1:7860/" width="100%" height="500" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
+<div><iframe src="https://jugalgajjar-rl-scratch-00-cifar-classification.hf.space/" width="100%" height="552" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
 
 
 
