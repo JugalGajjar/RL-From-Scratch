@@ -24,6 +24,12 @@ just_the_docs:
     pages:
       name: Pages
       nav_exclude: true
+  gh_csp:
+    enabled: true
+    frame-src:
+      - 'self'
+      - https://huggingface.co
+      - https://*.hf.space
 
 include:
   - _includes/head_custom.html
