@@ -564,7 +564,7 @@ Output:
 ```
 **NOTE:** The Gradio link has been updated to the Hugging Face Space link to ensure the reproducibility of the model trained in this tutorial.
 
-<div><iframe src="https://jugalgajjar-rl-scratch-00-cifar-classification.hf.space/" width="100%" height="555" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
+<div><iframe src="https://jugalgajjar-rl-scratch-00-cifar-classification.hf.space/" width="100%" height="557" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
 
 
 
