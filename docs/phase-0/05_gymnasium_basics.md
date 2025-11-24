@@ -6,18 +6,20 @@ nav_order: 6
 has_toc: true
 ---
 
-# Gymnasium Basics  
+
+# **Gymnasium Basics**  
 *Explore the foundation of Reinforcement Learning environments and agent–environment interaction.*
 
 **What you'll learn**
-- The **Gymnasium API**: `obs, info = env.reset()` → `obs, reward, terminated, truncated, info = env.step(action)`  
+- The Gymnasium API: `obs, info = env.reset()` → `obs, reward, terminated, truncated, info = env.step(action)`  
 - Handling episode endings: `done = terminated or truncated`  
-- Implementing a simple **random agent** baseline and visualizing episode returns  
-- A minimal **tabular value estimation** example to link dynamics with learning  
+- Implementing a simple random agent baseline and visualizing episode returns  
+- A minimal tabular value estimation example to link dynamics with learning  
 
 > This notebook bridges theory and practice — you’ll interact with environments, collect experience, and prepare for training real RL agents.
 
 
+**Code:**
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,9 +31,10 @@ except Exception as e:
     raise
 ```
 
+
 ## 1. Environment Anatomy  
 
-In reinforcement learning, an **environment** defines the world in which an agent operates. At each time step $ t $, the agent observes a state $ s_t $, takes an action $ a_t $, and receives a reward $ r_t $ while the environment transitions to a new state $ s_{t+1} $:  
+In reinforcement learning, an environment defines the world in which an agent operates. At each time step $ t $, the agent observes a state $ s_t $, takes an action $ a_t $, and receives a reward $ r_t $ while the environment transitions to a new state $ s_{t+1} $:  
 
 $$
 (s_t, a_t, r_t, s_{t+1}) \sim \mathcal{E}
@@ -41,7 +44,7 @@ The standard Gymnasium interface provides two key methods:
 - `env.reset()` → initializes the environment and returns the starting observation.  
 - `env.step(action)` → applies the chosen action and returns `(next_obs, reward, terminated, truncated, info)`.
 
-An episode ends when `terminated` (goal reached/failure) or `truncated` (time limit) is `True`. The agent’s goal is to **maximize the expected return**:
+An episode ends when `terminated` (goal reached/failure) or `truncated` (time limit) is `True`. The agent’s goal is to maximize the expected return:
 
 $$
 J(\pi) = \mathbb{E}_\pi \left[\sum_{t=0}^{T} \gamma^t r_t \right]
@@ -49,10 +52,11 @@ $$
 
 **In RL practice:**  
 - The environment models the dynamics $ P(s_{t+1} \mid s_t, a_t) $.  
-- The agent learns a **policy** $ \pi(a_t \mid s_t) $ that maps observations to actions.  
+- The agent learns a policy $ \pi(a_t \mid s_t) $ that maps observations to actions.  
 - Tools like Gymnasium provide standard benchmarks (CartPole, MountainCar, etc.) to evaluate and visualize how well the agent learns to act through interaction.
 
 
+**Code:**
 ```python
 import gymnasium as gym
 import numpy as np
@@ -72,11 +76,12 @@ print(f"Observation sample: {obs}")
 print(f"Info dictionary keys: {list(info.keys())}")
 ```
 
-Output:
+**Output:**
 ```
 Environment details:
 Action space: Discrete(2)
-Observation space: Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
+Observation space: Box([-4.8000002e+00 -3.4028235e+38 -4.1887903e-01 -3.4028235e+38], [4.8000002e+00 
+3.4028235e+38 4.1887903e-01 3.4028235e+38], (4,), float32)
 Max episode steps: 500
     
 Initial observation shape: (4,)
@@ -87,15 +92,15 @@ Info dictionary keys: []
 
 ## 2. Random Policy Baseline  
 
-Before training a smart agent, it’s important to establish a **baseline** — how well does an untrained, random policy perform?  
+Before training a smart agent, it’s important to establish a baseline — how well does an untrained, random policy perform?  
 
-A **policy** $ \pi(a\|s) $ defines how the agent selects actions given the current state. A random policy simply samples actions uniformly from the action space:  
+A policy $ \pi(a \mid s) $ defines how the agent selects actions given the current state. A random policy simply samples actions uniformly from the action space:  
 
 $$
 a_t \sim \text{Uniform}(\mathcal{A})
 $$
 
-We can then run several episodes to measure the **return** (total reward per episode):  
+We can then run several episodes to measure the return (total reward per episode):  
 
 $$
 G = \sum_{t=0}^{T} r_t
@@ -104,11 +109,12 @@ $$
 This provides a useful benchmark for later comparison — a trained agent should outperform the random baseline by achieving higher average returns.  
 
 In reinforcement learning, such baselines are critical for debugging:
-- They verify the **environment setup** and reward signals.  
-- They help visualize the **stochastic dynamics** of the task.  
-- They serve as a **lower bound** on performance before learning begins.
+- They verify the environment setup and reward signals.  
+- They help visualize the stochastic dynamics of the task.  
+- They serve as a lower bound on performance before learning begins.
 
 
+**Code:**
 ```python
 def run_random_episode(env, render=False, max_steps=1000, seed=None):
     """Run one episode with a random policy and return total reward."""
@@ -146,21 +152,19 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Random policy — mean return: 23.52
 Min: 10.00, Max: 66.00
 ```
 
 
-    
 ![png](05_gymnasium_basics_files/05_gymnasium_basics_5_1.png)
     
 
-
 ## 3. Simple Tabular Value Illustration (Toy)
 
-In reinforcement learning, we often estimate the **value** of taking an action in a given state. For discrete (tabular) environments, this is represented by a **Q-table**:
+In reinforcement learning, we often estimate the value of taking an action in a given state. For discrete (tabular) environments, this is represented by a Q-table:
 
 $$
 Q(s, a) \approx \mathbb{E}[R_t + \gamma \max_{a'} Q(s', a')]
@@ -173,19 +177,20 @@ where:
 - $ s' $ is the next state, and  
 - $ \gamma \in [0,1) $ is the discount factor controlling future reward importance.  
 
-In **continuous** environments (like `CartPole`), we can’t store all states explicitly. So here, we **discretize** the observation space into coarse bins to approximate a tabular setting. We’ll then use a **bandit-like update** to tweak action preferences based on received rewards:
+In continuous environments (like `CartPole`), we can’t store all states explicitly. So here, we discretize the observation space into coarse bins to approximate a tabular setting. We’ll then use a bandit-like update to tweak action preferences based on received rewards:
 
 $$
 Q(s, a) \leftarrow Q(s, a) + \alpha \big( r - Q(s, a) \big)
 $$
 
-This toy example is **not** a full RL algorithm — it only demonstrates how an agent can incrementally adjust its expectations based on experience.
+This toy example is not a full RL algorithm — it only demonstrates how an agent can incrementally adjust its expectations based on experience.
 
 **RL Connection:**
-- This forms the conceptual bridge between **bandits → tabular Q-learning → deep RL**.
-- Reinforcement learning generalizes this idea by using **bootstrapping**, **discounted returns**, and **function approximation**.
+- This forms the conceptual bridge between bandits → tabular Q-learning → deep RL.
+- Reinforcement learning generalizes this idea by using bootstrapping, discounted returns, and function approximation.
 
 
+**Code:**
 ```python
 from collections import defaultdict, deque
 
@@ -275,17 +280,15 @@ plt.tight_layout(); plt.show()
 env.close()
 ```
 
-Output:
+**Output:**
 ```
 Random-ish softmax toy — mean return over 150 eps: 19.61
 Last-10 mean: 10.60, max: 194.00
 ```
 
-
     
 ![png](05_gymnasium_basics_files/05_gymnasium_basics_7_1.png)
     
-
 
 ## Key Takeaways
 
