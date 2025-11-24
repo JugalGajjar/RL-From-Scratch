@@ -6,7 +6,8 @@ nav_order: 3
 has_toc: true
 ---
 
-# Gradient Descent & Optimization
+
+# **Gradient Descent & Optimization**
 *A practical, visual guide to first-order optimization — from vanilla GD to Adam — with RL connections.*
 
 **What you'll learn**
@@ -18,24 +19,23 @@ has_toc: true
 
 > **How to use:** Skim the theory blocks, then run the code cells — each section includes small, focused demos.
 
+
 ## 1. Vanilla Gradient Descent (GD)
 
-Gradient Descent (GD) is the **core optimization algorithm** underlying almost every modern machine learning and reinforcement learning (RL) method. It iteratively updates parameters in the opposite direction of the gradient to minimize a loss function.
-
+Gradient Descent (GD) is the core optimization algorithm underlying almost every modern machine learning and reinforcement learning (RL) method. It iteratively updates parameters in the opposite direction of the gradient to minimize a loss function.
 
 ### Definition
 
-Given a differentiable function $ f:\mathbb{R}^n \rightarrow \mathbb{R} $,  
-the **gradient descent update rule** is:
+Given a differentiable function $ f:\mathbb{R}^n \rightarrow \mathbb{R} $, the gradient descent update rule is:
 
 $$
 x_{k+1} = x_k - \eta \, \nabla f(x_k),
 $$
-where $ \eta > 0 $ is the **learning rate** (step size).
 
-- If $ \eta $ is **too small**, convergence is slow.  
-- If $ \eta $ is **too large**, the algorithm may overshoot and diverge.
+where $ \eta > 0 $ is the learning rate (step size).
 
+- If $ \eta $ is too small, convergence is slow.  
+- If $ \eta $ is too large, the algorithm may overshoot and diverge.
 
 ### Convergence on Quadratics
 
@@ -51,7 +51,7 @@ $$
 0 < \eta < \frac{2}{L}, \quad \text{where } L = \lambda_{\max}(Q).
 $$
 
-The **optimal constant step size** for convergence is approximately:
+The optimal constant step size for convergence is approximately:
 
 $$
 \eta^* = \frac{2}{\lambda_{\min}(Q) + \lambda_{\max}(Q)}.
@@ -60,12 +60,10 @@ $$
 Here:
 - $ \lambda_{\max}(Q) $: maximum eigenvalue (steepest curvature)
 - $ \lambda_{\min}(Q) $: minimum eigenvalue (flattest curvature)
-- $ \kappa = \frac{\lambda_{\max}}{\lambda_{\min}} $: **condition number**, which determines how “stretched” the loss surface is.
+- $ \kappa = \frac{\lambda_{\max}}{\lambda_{\min}} $: condition number, which determines how “stretched” the loss surface is.
 
 **Intuition:**  
-A large condition number ($\kappa \gg 1$) causes **zig-zagging** updates along steep directions —  
-a common reason for slow convergence and oscillations.
-
+A large condition number ($\kappa \gg 1$) causes zig-zagging updates along steep directions — a common reason for slow convergence and oscillations.
 
 ### Visualization Intuition
 
@@ -74,19 +72,19 @@ On an elliptical loss surface (like $x^\top Q x$):
 - The learning rate $\eta$ controls how far we move each time.  
 - Good step sizes lead to smooth spiraling toward the minimum.
 
-
 ### RL Connection
 
 In Reinforcement Learning, gradient descent forms the foundation of:
 
 | Concept | Description | Gradient Interpretation |
 |----------|--------------|--------------------------|
-| **Policy Optimization** | Adjusting parameters to maximize expected return. | $ \theta_{k+1} = \theta_k + \eta \, \nabla_\theta J(\pi_\theta) $ |
-| **Value Function Approximation** | Fitting value networks via TD-error or MSE. | $ w_{k+1} = w_k - \eta \, \nabla_w \tfrac{1}{2}(V_w - \hat V)^2 $ |
-| **Actor–Critic Updates** | Policy and value updates alternate using gradient signals. | Separate learning rates stabilize learning |
-| **Stability Considerations** | Too large a step can cause divergence (e.g., Q-learning instability). | Proper scheduling of $\eta$ is crucial |
+| Policy Optimization | Adjusting parameters to maximize expected return. | $ \theta_{k+1} = \theta_k + \eta \, \nabla_\theta J(\pi_\theta) $ |
+| Value Function Approximation | Fitting value networks via TD-error or MSE. | $ w_{k+1} = w_k - \eta \, \nabla_w \tfrac{1}{2}(V_w - \hat V)^2 $ |
+| Actor–Critic Updates | Policy and value updates alternate using gradient signals. | Separate learning rates stabilize learning |
+| Stability Considerations | Too large a step can cause divergence (e.g., Q-learning instability). | Proper scheduling of $\eta$ is crucial |
 
 
+**Code:**
 ```python
 # Gradient Descent on a 2D Quadratic: stability vs. step size (fixed visuals)
 import numpy as np
@@ -162,23 +160,20 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 λ_min=1.000, λ_max=5.000, κ=5.00
 η* (optimal fixed step) ≈ 0.333
 Stability requires 0 < η < 0.400
 ```
 
-
-    
+  
 ![png](02_gradient_descent_optimize_files/02_gradient_descent_optimize_2_1.png)
-    
 
 
 ## 2. Momentum & Nesterov Acceleration
 
-Gradient Descent can oscillate on **valleys or ill-conditioned surfaces**. **Momentum** adds an *inertial term* that helps the optimizer move faster along consistent directions and dampen oscillations across steep walls.
-
+Gradient Descent can oscillate on valleys or ill-conditioned surfaces. Momentum adds an *inertial term* that helps the optimizer move faster along consistent directions and dampen oscillations across steep walls.
 
 ### Momentum
 
@@ -190,13 +185,12 @@ x_{k+1} = x_k - \eta v_{k+1},
 $$
 
 where  
-- $ \beta \in [0,1) $ is the **momentum coefficient** (typically 0.9),  
+- $ \beta \in [0,1) $ is the momentum coefficient (typically 0.9),  
 - $ \eta $ is the learning rate.
 
 **Intuition:**  
 - The update combines the current gradient with a fraction of the previous direction.  
 - Like pushing a ball down a hill — once it gains speed, small bumps don’t stop it.
-
 
 ### Nesterov Accelerated Gradient (NAG)
 
@@ -209,26 +203,25 @@ $$
 
 This “anticipatory” step makes NAG more stable and responsive — the optimizer slows down automatically near minima.
 
-
 ### Geometric Intuition
 
 - Momentum smooths oscillations in narrow ravines.  
-- NAG further improves by **predicting** where the next step will be.  
+- NAG further improves by predicting where the next step will be.  
 - Both reduce the zig-zag effect in poorly conditioned loss landscapes.
-
 
 ### RL Connection
 
 | RL Concept | Optimization Analogy |
 |-------------|---------------------|
-| **Policy updates** | Momentum helps stabilize noisy gradients from sampled trajectories. |
-| **Value network training** | NAG accelerates convergence when value loss surfaces are elongated. |
-| **Actor–critic learning** | Critic updates can benefit from velocity terms to reduce variance in gradient flow. |
-| **Adaptive methods (e.g., Adam)** | Combine momentum with per-parameter scaling for robust RL training. |
+| Policy updates | Momentum helps stabilize noisy gradients from sampled trajectories. |
+| Value network training | NAG accelerates convergence when value loss surfaces are elongated. |
+| Actor–critic learning | Critic updates can benefit from velocity terms to reduce variance in gradient flow. |
+| Adaptive methods (e.g., Adam) | Combine momentum with per-parameter scaling for robust RL training. |
 
-Momentum-based optimizers are crucial in RL because policy gradients are **noisy and high-variance** — accumulating direction information leads to smoother and faster learning.
+Momentum-based optimizers are crucial in RL because policy gradients are noisy and high-variance — accumulating direction information leads to smoother and faster learning.
 
 
+**Code:**
 ```python
 def run_optimizer(x0, lr, beta, steps=50, mode="momentum"):
     x = x0.copy()
@@ -276,16 +269,13 @@ plt.tight_layout()
 plt.show()
 ```
 
-
-    
+   
 ![png](02_gradient_descent_optimize_files/02_gradient_descent_optimize_4_0.png)
     
 
-
 ## 3. Adaptive Methods — AdaGrad, RMSProp, Adam
 
-Classical Gradient Descent uses a *single global learning rate* $ \eta $ for all parameters. However, different parameters may experience gradients of vastly different magnitudes. **Adaptive methods** address this by scaling updates using historical gradient information.
-
+Classical Gradient Descent uses a *single global learning rate* $ \eta $ for all parameters. However, different parameters may experience gradients of vastly different magnitudes. Adaptive methods address this by scaling updates using historical gradient information.
 
 ### AdaGrad
 
@@ -301,7 +291,6 @@ $$
 - Works well for sparse features (e.g., text, embeddings).  
 - Drawback: the accumulated $G_t$ keeps growing, causing vanishing steps.
 
-
 ### RMSProp
 
 RMSProp [(Hinton, 2012)](https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf) fixes AdaGrad’s decay issue by using an **exponential moving average**:
@@ -314,7 +303,6 @@ $$
 - Smooths the gradient magnitude estimate.
 - Prevents aggressive decay in learning rate.
 - Common in non-stationary settings like RL.
-
 
 ### Adam
 
@@ -334,17 +322,17 @@ $$
 - RMS scaling ensures robust adaptation.  
 - Bias correction keeps early updates consistent.
 
-
 ### RL Connection
 
 | RL Concept | Optimizer Analogy |
 |-------------|-------------------|
-| **Policy Gradient Updates** | Adam stabilizes noisy, high-variance policy gradients across episodes. |
-| **Value Function Fitting** | RMSProp smooths non-stationary TD errors, aiding stable critic updates. |
-| **Actor–Critic Methods** | Separate step-size adaptation for actor and critic encourages balanced learning. |
-| **Exploration in Noisy Environments** | Adaptive step scaling helps avoid premature convergence to suboptimal policies. |
+| Policy Gradient Updates | Adam stabilizes noisy, high-variance policy gradients across episodes. |
+| Value Function Fitting | RMSProp smooths non-stationary TD errors, aiding stable critic updates. |
+| Actor–Critic Methods | Separate step-size adaptation for actor and critic encourages balanced learning. |
+| Exploration in Noisy Environments | Adaptive step scaling helps avoid premature convergence to suboptimal policies. |
 
 
+**Code:**
 ```python
 # Optimizer steps
 def adagrad_step(x, g, G, lr=0.30, eps=1e-8):
@@ -409,7 +397,6 @@ def run_adam(x0, steps=80, lr=0.15, b1=0.9, b2=0.999, noise_std=0.10, clip_norm=
     return np.array(xs), np.array(losses)
 ```
 
-
 ```python
 # Run all three on the same problem
 x0 = np.array([3.0, -3.0])
@@ -440,22 +427,20 @@ plt.xlabel("x₁"); plt.ylabel("x₂"); plt.xlim(-view, view); plt.ylim(-view, v
 plt.legend(); plt.tight_layout(); plt.show()
 ```
 
-Output:
+**Output:**
 ```
 AdaGrad LR: 0.25, RMSProp LR: 0.075, Adam LR: 0.05
 ```
 
 
-    
 ![png](02_gradient_descent_optimize_files/02_gradient_descent_optimize_7_1.png)
     
-
 
 ## 4. Schedules, Gradient Clipping, and Plateaus
 
 ### Learning Rate (LR) Schedules
 
-A **learning rate schedule** adjusts the step size $\eta_k$ during training to balance **exploration** (large steps early) and **convergence** (smaller steps later).  
+A learning rate schedule adjusts the step size $\eta_k$ during training to balance exploration (large steps early) and convergence (smaller steps later).  
 Common schedules:
 
 $$
@@ -467,9 +452,9 @@ $$
 \end{cases}
 $$
 
-- Large learning rates help escape flat regions or **plateaus** early on.  
+- Large learning rates help escape flat regions or plateaus early on.  
 - Gradual decay prevents oscillations near optima.  
-- **Warm restarts** (e.g., cosine annealing) cyclically increase $\eta_k$ to promote exploration again.
+- Warm restarts (e.g., cosine annealing) cyclically increase $\eta_k$ to promote exploration again.
 
 
 ### Gradient Clipping
@@ -483,24 +468,23 @@ $$
 - Stabilizes training in deep or recurrent networks.
 - Prevents large parameter updates that could derail optimization.
 
-
 ### Plateaus and Flat Regions
 
 During training, gradients may approach zero even far from optimality (common in sigmoid/tanh activations or deep credit assignment). Adaptive LR and momentum methods help “push through” these flat regions by maintaining accumulated update momentum or increasing effective step sizes.
-
 
 ### RL Connection
 
 | RL Concept | Optimization Analogy |
 |-------------|----------------------|
-| **Policy Gradient Training** | LR schedules prevent premature convergence to suboptimal deterministic policies. |
-| **Value Function Updates** | Clipping gradients stabilizes critic learning when TD errors explode. |
-| **Actor–Critic Stability** | Small LR for critic, larger for actor — prevents feedback loops. |
-| **Exploration Plateaus** | LR restarts or adaptive scaling can reintroduce exploration after stagnation. |
+| Policy Gradient Training | LR schedules prevent premature convergence to suboptimal deterministic policies. |
+| Value Function Updates | Clipping gradients stabilizes critic learning when TD errors explode. |
+| Actor–Critic Stability | Small LR for critic, larger for actor — prevents feedback loops. |
+| Exploration Plateaus | LR restarts or adaptive scaling can reintroduce exploration after stagnation. |
 
-In practice, **Adam with gradient clipping** and **cosine decay** LR schedules are standard for modern deep RL algorithms (e.g., PPO, SAC, DDPG).
+In practice, Adam with gradient clipping and cosine decay LR schedules are standard for modern deep RL algorithms (e.g., PPO, SAC, DDPG).
 
 
+**Code:**
 ```python
 def run_gd_clip(x0, lr, steps=60, clip=None):
     x = x0.copy(); xs=[x.copy()]
@@ -525,20 +509,17 @@ plt.legend(); plt.title("Gradient clipping + LR decay")
 plt.xlabel("x1"); plt.ylabel("x2"); plt.tight_layout(); plt.show()
 ```
 
-
-    
+  
 ![png](02_gradient_descent_optimize_files/02_gradient_descent_optimize_9_0.png)
     
 
-
 ## 5. RL Tie-Ins — Policy Gradient & Critic Regression
 
-Optimization is at the **core of reinforcement learning** — every policy or value function update ultimately involves minimizing or maximizing an objective via gradient-based methods.
-
+Optimization is at the core of reinforcement learning — every policy or value function update ultimately involves minimizing or maximizing an objective via gradient-based methods.
 
 ### Policy Gradient — Maximizing Expected Return
 
-The **policy gradient theorem** provides a principled way to adjust parameters $\theta$ of a stochastic policy $\pi_\theta(a\|s)$ to maximize expected cumulative reward:
+The policy gradient theorem provides a principled way to adjust parameters $\theta$ of a stochastic policy $\pi_\theta(a \mid s)$ to maximize expected cumulative reward:
 
 $$
 J(\theta) = \mathbb{E}_{\pi_\theta}\Big[\sum_{t=0}^{\infty} \gamma^t R_t\Big].
@@ -548,25 +529,24 @@ The gradient is:
 
 $$
 \nabla_\theta J(\theta)
-= \mathbb{E}_{\pi_\theta}\!\big[\,\nabla_\theta \log \pi_\theta(a|s) \, G_t\,\big],
+= \mathbb{E}_{\pi_\theta}\!\big[\,\nabla_\theta \log \pi_\theta(a \mid s) \, G_t\,\big],
 $$
 
 where $G_t$ is the discounted return.  
 In practice, we estimate this via Monte Carlo samples:
 
 $$
-\theta \leftarrow \theta + \eta \, \nabla_\theta \log \pi_\theta(a_t|s_t) \, G_t.
+\theta \leftarrow \theta + \eta \, \nabla_\theta \log \pi_\theta(a_t \mid s_t) \, G_t.
 $$
 
 **Connection to optimization:**
-- It’s **stochastic gradient ascent** on $J(\theta)$.
-- Techniques like **momentum**, **Adam**, and **gradient clipping** directly transfer here.
+- It’s stochastic gradient ascent on $J(\theta)$.
+- Techniques like momentum, Adam, and gradient clipping directly transfer here.
 - LR schedules help stabilize policy updates and reduce variance.
-
 
 ### Critic Regression — Minimizing Value Error
 
-The **critic** (value function approximator) is trained to minimize the mean-squared error between predicted and empirical returns:
+The critic (value function approximator) is trained to minimize the mean-squared error between predicted and empirical returns:
 
 $$
 L(\phi) = \tfrac{1}{2}\, \mathbb{E}\big[(V_\phi(s_t) - G_t)^2\big].
@@ -578,26 +558,25 @@ $$
 \nabla_\phi L = (V_\phi(s_t) - G_t) \, \nabla_\phi V_\phi(s_t),
 $$
 
-which is optimized using standard **gradient descent** or **Adam**.
+which is optimized using standard gradient descent or Adam.
 
 **Connection to optimization:**
 - Equivalent to supervised regression.
 - Often uses smaller learning rates than the policy to ensure stable updates.
 - Adaptive methods (Adam) handle noisy value targets well.
 
-
 ### Summary Table
 
 | RL Component | Objective | Optimization Type | Update Rule |
 |---------------|------------|-------------------|--------------|
-| **Actor (Policy)** | Maximize expected return $J(\theta)$ | Gradient **ascent** | $\theta \leftarrow \theta + \eta \nabla_\theta \log \pi_\theta(a\|s) G_t$ |
-| **Critic (Value Function)** | Minimize MSE $L(\phi)$ | Gradient **descent** | $\phi \leftarrow \phi - \eta (V_\phi - G_t)\nabla_\phi V_\phi$ |
+| Actor (Policy) | Maximize expected return $J(\theta)$ | Gradient ascent | $\theta \leftarrow \theta + \eta \nabla_\theta \log \pi_\theta(a \mid s) G_t$ |
+| Critic (Value Function) | Minimize MSE $L(\phi)$ | Gradient descent | $\phi \leftarrow \phi - \eta (V_\phi - G_t)\nabla_\phi V_\phi$ |
 
 ## Key Takeaways
-- **Step size controls stability**; conditioning dictates GD speed on quadratics.  
-- **Momentum/Nesterov** reduce oscillations and speed up progress on ill-conditioned problems.  
-- **Adaptive optimizers (Adam/RMSProp/AdaGrad)** tune per-parameter steps and handle noise.  
-- **Schedules & clipping** mitigate exploding/vanishing gradients and plateaus.  
-- In **RL**, these tools stabilize **policy gradients** and **critic training**.
+- Step size controls stability; conditioning dictates GD speed on quadratics.  
+- Momentum/Nesterov reduce oscillations and speed up progress on ill-conditioned problems.  
+- Adaptive optimizers (Adam/RMSProp/AdaGrad) tune per-parameter steps and handle noise.  
+- Schedules & clipping mitigate exploding/vanishing gradients and plateaus.  
+- In RL, these tools stabilize policy gradients and critic training.
 
-**Next:** `00_gradient_descent_from_scratch.ipynb` → build your own GD/Momentum/Adam modules and apply them to regression & simple control tasks.
+**Next:** `03_scikit-learn_basics.ipynb` → learn about regression, classification, and hyperparameter search using scikit-learn library.
