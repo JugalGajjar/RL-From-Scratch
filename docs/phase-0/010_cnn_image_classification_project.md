@@ -6,21 +6,24 @@ nav_order: 11
 has_toc: true
 ---
 
-# CNN Image Classification Project (CIFAR-10)
+
+# **CNN Image Classification Project (CIFAR-10)**
 *End-to-end deep learning pipeline with data augmentation and a small UI demo.*
 
 **What you'll do**
 - Load CIFAR-10 and explore sample images
-- Build train/val/test splits with **data augmentations**
-- Train a **CNN** with PyTorch (cross-entropy, Adam)
+- Build train/val/test splits with data augmentations
+- Train a CNN with PyTorch (cross-entropy, Adam)
 - Evaluate with accuracy & confusion matrix; inspect misclassifications
-- Wrap the trained model in a small **Gradio UI** for interactive predictions
+- Wrap the trained model in a small Gradio UI for interactive predictions
 
 This project mirrors a standard vision pipeline used in deep RL encoders.
+
 
 ## 0. Imports & Device
 
 
+**Code:**
 ```python
 import os
 import numpy as np
@@ -44,10 +47,11 @@ device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if 
 print("Using device:", device)
 ```
 
-Output:
+**Output:**
 ```
 Using device: mps
 ```
+
 
 ## 1. Load CIFAR-10 & Define Transforms (with Augmentations)
 
@@ -58,6 +62,7 @@ We use:
 - Normalization with CIFAR-10 stats
 
 
+**Code:**
 ```python
 DATA_ROOT = "./data"
 
@@ -94,7 +99,8 @@ class_names = full_train.classes
 print("Classes:", class_names)
 print("Train size:", len(full_train), "Test size:", len(test_ds))
 ```
-Output:
+
+**Output:**
 ```
 Files already downloaded and verified
 Files already downloaded and verified
@@ -102,9 +108,11 @@ Classes: ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse
 Train size: 50000 Test size: 10000
 ```
 
+
 ## 2. Train / Validation Split & DataLoaders
 
 
+**Code:**
 ```python
 # Split train into (train, val)
 train_size = int(0.9 * len(full_train))
@@ -122,14 +130,17 @@ test_loader  = DataLoader(test_ds,  batch_size=batch_size, shuffle=False, num_wo
 
 print(f"Train batches: {len(train_loader)}, Val batches: {len(val_loader)}, Test batches: {len(test_loader)}")
 ```
-Output:
+
+**Output:**
 ```
 Train batches: 352, Val batches: 40, Test batches: 79
 ```
 
+
 ## 3. Utility: Unnormalize & Visualize Samples / Augmentations
 
 
+**Code:**
 ```python
 # Helper to unnormalize images for plotting
 inv_mean = np.array([0.4914, 0.4822, 0.4465])
@@ -160,15 +171,14 @@ plt.tight_layout()
 plt.show()
 ```
 
-
-    
+ 
 ![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_8_0.png)
     
-
 
 ### Visualize augmentations of a single raw image
 
 
+**Code:**
 ```python
 # Reload a raw (untransformed) dataset to show augmentations clearly
 raw_train = torchvision.datasets.CIFAR10(root=DATA_ROOT, train=True, download=False, transform=None)
@@ -187,10 +197,8 @@ plt.show()
 ```
 
 
-    
 ![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_10_0.png)
     
-
 
 ## 4. Define a CNN Model
 
@@ -200,6 +208,7 @@ A small but decent CIFAR-10 CNN:
 - Softmax via `CrossEntropyLoss`
 
 
+**Code:**
 ```python
 class SmallCifarCNN(nn.Module):
     def __init__(self, num_classes: int = 10):
@@ -237,7 +246,8 @@ class SmallCifarCNN(nn.Module):
 model = SmallCifarCNN(num_classes=len(class_names)).to(device)
 print(model)
 ```
-Output:
+
+**Output:**
 ```
 SmallCifarCNN(
   (features): Sequential(
@@ -264,16 +274,18 @@ SmallCifarCNN(
 )
 ```
 
+
 ## 5. Training & Validation Loop
 
 We train with:
-- Loss: **CrossEntropyLoss**
-- Optimizer: **Adam**
+- Loss: CrossEntropyLoss
+- Optimizer: Adam
 - Metric: accuracy on train & val
 
-We keep track of the **best validation accuracy** and save that model.
+We keep track of the best validation accuracy and save that model.
 
 
+**Code:**
 ```python
 def accuracy_from_logits(logits, targets):
     preds = logits.argmax(dim=1)
@@ -313,7 +325,6 @@ def eval_one_epoch(model, loader, criterion):
     return total_loss / total_n, total_acc / total_n
 ```
 
-
 ```python
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-4)
@@ -344,7 +355,8 @@ for epoch in range(1, num_epochs + 1):
 
 print("Best val acc:", best_val_acc)
 ```
-Output:
+
+**Output:**
 ```
 Epoch 01 | Train loss=1.6629, acc=0.3871 | Val loss=1.4963, acc=0.4526
 Epoch 02 | Train loss=1.3893, acc=0.4935 | Val loss=1.2387, acc=0.5516
@@ -369,9 +381,11 @@ Epoch 20 | Train loss=0.7816, acc=0.7336 | Val loss=0.7358, acc=0.7418
 Best val acc: 0.7418
 ```
 
+
 ### Plot training / validation curves
 
 
+**Code:**
 ```python
 train_loss_arr = np.array([t[0] for t in train_hist])
 train_acc_arr  = np.array([t[1] for t in train_hist])
@@ -400,15 +414,14 @@ plt.tight_layout()
 plt.show()
 ```
 
-
-    
+  
 ![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_17_0.png)
     
-
 
 ## 6. Test Evaluation & Error Analysis
 
 
+**Code:**
 ```python
 # Load best model before testing
 best_model = SmallCifarCNN(num_classes=len(class_names)).to(device)
@@ -430,12 +443,14 @@ all_targets  = np.concatenate(all_targets)
 test_acc     = (all_preds == all_targets).mean()
 print("Test accuracy:", round(test_acc, 4))
 ```
-Output:
+
+**Output:**
 ```
 Test accuracy: 0.7697
 ```
 
 
+**Code:**
 ```python
 # Confusion matrix
 cm = confusion_matrix(all_targets, all_preds)
@@ -447,18 +462,17 @@ plt.tight_layout()
 plt.show()
 ```
 
-
     
 ![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_20_0.png)
     
 
-
-
+**Code:**
 ```python
 # Classification report
 print(classification_report(all_targets, all_preds, target_names=class_names))
 ```
-Output:
+
+**Output:**
 ```
               precision    recall  f1-score   support
 
@@ -479,7 +493,7 @@ weighted avg       0.78      0.77      0.77     10000
 ```
 
 
-
+**Code:**
 ```python
 # Visualize some misclassified examples
 wrong_idx = np.where(all_preds != all_targets)[0]
@@ -500,25 +514,25 @@ plt.suptitle("Some misclassified test examples", y=0.92)
 plt.tight_layout()
 plt.show()
 ```
-Output:
+
+**Output:**
 ```
 Total misclassified: 2303
 ```
 
 
-    
 ![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_22_1.png)
     
 
-
 ## 7. “Deployment” — Gradio UI Interface
 
-We now wrap the **best model** in a tiny web UI using **Gradio**:
+We now wrap the best model in a tiny web UI using `Gradio`:
 - Upload an image (any RGB)  
 - We resize & normalize it like CIFAR-10  
-- Show **top-3 class probabilities**
+- Show top-3 class probabilities
 
 
+**Code:**
 ```python
 # Define a model for deployment (reuse best_model)
 deployed_model = best_model
@@ -553,32 +567,26 @@ demo = gr.Interface(
 )
 ```
 
-
 ```python
 demo.launch(share=False)
 ```
-Output:
+
+**Output:**
 ```
-* Running on local URL:  http://127.0.0.1:7860
-* To create a public link, set `share=True` in `launch()`.
+    * Running on local URL:  http://127.0.0.1:7860
+    * To create a public link, set `share=True` in `launch()`.
 ```
+
 **NOTE:** The Gradio link has been updated to the Hugging Face Space link to ensure the reproducibility of the model trained in this tutorial.
 
 <div><iframe src="https://jugalgajjar-rl-scratch-00-cifar-classification.hf.space/" width="100%" height="557" allow="autoplay; camera; microphone; clipboard-read; clipboard-write;" frameborder="0" allowfullscreen></iframe></div>
 
 
-
-
-
-    
-
-
-
 ## Project Summary & Next Steps
 
-- Built a full **CIFAR-10 CNN** pipeline: data → model → training → evaluation → Deployment.  
-- Used **data augmentation** to improve generalization and robustness.  
+- Built a full CIFAR-10 CNN pipeline: data → model → training → evaluation → Deployment.  
+- Used data augmentation to improve generalization and robustness.  
 - Performed thorough evaluation via accuracy, confusion matrix, and misclassification analysis.  
-- Wrapped the trained model in a **Gradio interface** for lightweight interactive deployment.  
+- Wrapped the trained model in a Gradio interface for lightweight interactive deployment.  
 
-> **Next:** Proceed to `Phase 1 — Fundamentals`, covering **MDPs, Bellman Equations, Dynamic Programming, Monte Carlo, and TD Learning**, which form the theoretical backbone of modern Reinforcement Learning.
+> **Next:** Proceed to `Phase 1 — Fundamentals`, covering MDPs, Bellman Equations, Dynamic Programming, Monte Carlo, and TD Learning, which form the theoretical backbone of modern Reinforcement Learning.
