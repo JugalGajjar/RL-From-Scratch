@@ -41,7 +41,7 @@ A companion **website** (hosted via **GitHub Pages**) mirrors this repo with cle
 
 | Phase | Title | Description |
 |:------|:-------|:-------------|
-| **0** | [Prerequisites](./00-Prerequisites) | Math, probability, calculus, Python, and ML basics |
+| **0** | [Prerequisites](./00-Prerequisites) | Probability, Linear Algebra, Calculus, Python, ML & DL basics, Markov Chains |
 | **1** | [Fundamentals](./01-Fundamentals) | MDPs, Bellman equations, dynamic programming, Monte Carlo, TD learning |
 | **2** | [Value-Based Methods](./02-Value-Based) | SARSA, Q-Learning, exploration, and function approximation |
 | **3** | [Policy-Based Methods](./03-Policy-Based) | Policy Gradients, REINFORCE, Actor-Critic, A2C |
@@ -60,13 +60,14 @@ A companion **website** (hosted via **GitHub Pages**) mirrors this repo with cle
 **Topics**
 - Probability, Statistics, Linear Algebra, Calculus  
 - Gradient Descent and Optimization  
-- Python Essentials (NumPy, Matplotlib, Gymnasium)  
-- Basic ML (Regression, Loss, Backpropagation)
+- Python Essentials (scikit-learn, PyTorch, Gymnasium)  
+- Basic Machine Learning (Regression, Classification, Evaluation Metrics)
+- Basic Deep Learning (Neuron, MLP, CNN)
+- Introduction to Markov Chains
 
 **Mini Projects**
-- Gradient Descent from Scratch  
-- Simple Linear Regression  
-- Visualizing Probability Distributions  
+- End-to-End Linear Regression 
+- Image Classification using CNN 
 
 📁 Folder: [`00-Prerequisites`](./00-Prerequisites)
 
@@ -223,12 +224,8 @@ RL-From-Scratch/
    git clone https://github.com/JugalGajjar/RL-From-Scratch.git
    cd RL-From-Scratch
    ```
-2. Learn sequentially from `00-Prerequisites` → `06-SOTA-RL`.
-3. Each phase contains:
-   - README.md — theory & math overview
-   - notebook.ipynb — implementation & visualization
-   - visuals/ — training plots, GIFs
-   - references.md — papers and resources
+2. Learn sequentially from `00-Prerequisites` → `07-Applications`.
+3. You can use the Jupyter notebooks or use the (https://jugalgajjar.github.io/RL-From-Scratch/)[Website].
 
 ---
 
@@ -247,10 +244,9 @@ If you’d like to add an implementation, visualization, or paper reproduction:
 This repository is open-sourced under the **MIT License**.  
 If you use this project in your research, coursework, or publications, please cite it as:
 
-> **Jugal Gajjar. (2025). _JugalGajjar/RL-From-Scratch: v0.1_ (v0.1). Zenodo.**  
-> [https://doi.org/10.5281/zenodo.17555229](https://doi.org/10.5281/zenodo.17555229)
+> **Jugal Gajjar. (2025). JugalGajjar/RL-From-Scratch: v0.7 (v0.7). Zenodo.**
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17555229.svg)](https://doi.org/10.5281/zenodo.17555229)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17693816.svg)](https://doi.org/10.5281/zenodo.17693816)
 
 ---
 
