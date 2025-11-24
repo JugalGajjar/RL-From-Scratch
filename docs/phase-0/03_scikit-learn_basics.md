@@ -6,19 +6,21 @@ nav_order: 4
 has_toc: true
 ---
 
-# scikit-learn Basics
+
+# **scikit-learn Basics**
 *A practical tour of classical ML with scikit-learn — datasets, preprocessing, models, metrics, and pipelines.*
 
 **What you'll learn**
-- The **scikit-learn API**: `fit`, `predict`, `score`
-- Loading & splitting datasets, **preprocessing** (scaling, one-hot), **pipelines**
-- Core models: **LinearRegression**, **LogisticRegression**, **SVC**, **RandomForest**
-- **Model selection** via cross-validation & grid search
+- The scikit-learn API: `fit`, `predict`, `score`
+- Loading & splitting datasets, preprocessing (scaling, one-hot), pipelines
+- Core models: LinearRegression, LogisticRegression, SVC, RandomForest
+- Model selection via cross-validation & grid search
 - Clear plots for diagnostics and evaluation
 
 > Before deep RL, we need strong ML hygiene — splitting data, avoiding leakage, and using robust metrics. These practices transfer directly to training value functions and reward models.
 
 
+**Code:**
 ```python
 # Imports
 import numpy as np
@@ -41,20 +43,19 @@ from sklearn.decomposition import PCA
 np.random.seed(0)
 ```
 
+
 ## 1. Quick API Primer
 
-The **scikit-learn API** is designed with a consistent and minimal interface that makes experimenting with models simple and reproducible.  
-Almost every algorithm in scikit-learn follows this pattern:
+The scikit-learn API is designed with a consistent and minimal interface that makes experimenting with models simple and reproducible. Almost every algorithm in scikit-learn follows this pattern:
 
-1. `est = Model(**hyperparams)` → **Initialize** the estimator with parameters.  
-2. `est.fit(X_train, y_train)` → **Train** (learn parameters from data).  
-3. `pred = est.predict(X_test)` → **Infer** on unseen data.  
-4. `score = est.score(X_test, y_test)` → **Evaluate** using an appropriate metric.
-
+1. `est = Model(**hyperparams)` → Initialize the estimator with parameters.  
+2. `est.fit(X_train, y_train)` → Train (learn parameters from data).  
+3. `pred = est.predict(X_test)` → Infer on unseen data.  
+4. `score = est.score(X_test, y_test)` → Evaluate using an appropriate metric.
 
 ### Theoretical Insight
 
-In supervised learning, we model the mapping  
+In supervised learning, we model the mapping 
 
 $$
 \hat{y} = f_\theta(x)
@@ -67,7 +68,7 @@ $$
 \min_\theta \; \mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^{N} \ell(f_\theta(x_i), y_i)
 $$
 
-Here, $\ell$ is a **loss function**, e.g. mean squared error or cross-entropy.  
+Here, $\ell$ is a loss function, e.g. mean squared error or cross-entropy.  
 Different estimators implement this optimization internally — linear models solve it analytically, while trees or ensembles do it iteratively.
 
 The design philosophy of scikit-learn enforces:
@@ -75,46 +76,45 @@ The design philosophy of scikit-learn enforces:
 - **Composability**: estimators, transformers, and pipelines can be chained.
 - **Statelessness**: fit-transform steps are explicit, avoiding hidden state.
 
-
 ### RL Connection
 
 In **Reinforcement Learning**, we often optimize models that map states to actions or predict values/rewards.  
-Just like `fit` learns patterns from labeled data, an RL agent **fits** policy parameters to maximize expected return:
+Just like `fit` learns patterns from labeled data, an RL agent fits policy parameters to maximize expected return:
 
 $$
 J(\theta) = \mathbb{E}_{\pi_\theta} \big[ \sum_t \gamma^t r_t \big]
 $$
 
 Conceptually:
-- The policy $ \pi_\theta(a\|s) $ plays the role of $ f_\theta(x) $.
+- The policy $ \pi_\theta(a \mid s) $ plays the role of $ f_\theta(x) $.
 - Gradient-based updates in RL (e.g., Policy Gradient, Q-learning) are analogous to scikit-learn’s internal optimization loops.
 - Building pipelines and evaluating models (like in scikit-learn) mirrors how we test and tune agents across environments.
 
-> Understanding the fit–predict–evaluate loop prepares you for the **optimize–interact–evaluate** loop in RL.
+> Understanding the fit–predict–evaluate loop prepares you for the optimize–interact–evaluate loop in RL.
+
 
 ## 2. Regression — Linear Regression on Diabetes
 
-Regression is a fundamental supervised learning task where the goal is to predict a **continuous target variable** $ y $ from input features $ x $. The simplest and most interpretable model is **Linear Regression**, which assumes a linear relationship:
+Regression is a fundamental supervised learning task where the goal is to predict a continuous target variable $ y $ from input features $ x $. The simplest and most interpretable model is Linear Regression, which assumes a linear relationship:
 
 $$
 \hat{y} = w^\top x + b
 $$
 
 Here:
-- $ w $ are the **weights** (slope coefficients),
-- $ b $ is the **bias** (intercept),
+- $ w $ are the weights (slope coefficients),
+- $ b $ is the bias (intercept),
 - $ \hat{y} $ is the model’s prediction for input $ x $.
-
 
 ### Mathematical Formulation
 
-Given data $ (x_i, y_i)_{i=1}^N $, we minimize the **Mean Squared Error (MSE)**:
+Given data $ (x_i, y_i)_{i=1}^N $, we minimize the Mean Squared Error (MSE):
 
 $$
 \mathcal{L}(w, b) = \frac{1}{N} \sum_{i=1}^{N} (y_i - (w^\top x_i + b))^2
 $$
 
-This has a **closed-form solution** (Normal Equation):
+This has a closed-form solution (Normal Equation):
 
 $$
 \hat{w} = (X^\top X)^{-1} X^\top y
@@ -122,32 +122,30 @@ $$
 
 Linear regression thus finds the best-fitting line (or hyperplane) that minimizes the squared residuals between predictions and true values.
 
-
 ### Interpretation & Visualization
 
-When applied to the **Diabetes dataset**, we model how medical metrics (e.g., BMI, glucose level) affect disease progression scores.  
+When applied to the Diabetes dataset, we model how medical metrics (e.g., BMI, glucose level) affect disease progression scores.  
 By plotting predicted vs. actual values, we can visually assess:
 - **Fit quality:** how close predictions align with targets.
 - **Bias/variance:** systematic errors or noise sensitivity.
 
-
 ### RL Connection
 
-Linear regression directly relates to **value function approximation** in Reinforcement Learning.  
-For instance, in **Least Squares Temporal Difference (LSTD)** methods, the value function is approximated as:
+Linear regression directly relates to value function approximation in Reinforcement Learning. For instance, in Least Squares Temporal Difference (LSTD) methods, the value function is approximated as:
 
 $$
 V^\pi(s) \approx \phi(s)^\top w
 $$
 
-where $ \phi(s) $ are **state features** and $ w $ is found by minimizing the temporal difference error — analogous to minimizing MSE in regression.
+where $ \phi(s) $ are state features and $ w $ is found by minimizing the temporal difference error — analogous to minimizing MSE in regression.
 
 Thus, understanding linear regression lays the groundwork for:
-- **Linear value approximation** (in TD or LSTD),
-- **Policy evaluation** under fixed policies,
-- **Function approximation stability** and convergence properties.
+- Linear value approximation (in TD or LSTD),
+- Policy evaluation under fixed policies,
+- Function approximation stability and convergence properties.
 
 
+**Code:**
 ```python
 # Load dataset
 X, y = datasets.load_diabetes(return_X_y=True)
@@ -183,49 +181,45 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Mean Squared Error (MSE): 2848.311
 R² Score: 0.485
 ```
 
 
-    
 ![png](03_scikit-learn_basics_files/03_scikit-learn_basics_4_1.png)
     
 
-
 ## 3. Classification — Logistic Regression on Iris
 
-Classification is a **supervised learning** task where the goal is to assign an input $ x $ to one of several **discrete categories**. Unlike regression (which predicts continuous values), classification outputs probabilities over classes.
-
+Classification is a supervised learning task where the goal is to assign an input $ x $ to one of several discrete categories. Unlike regression (which predicts continuous values), classification outputs probabilities over classes.
 
 ### Intuition
 
-Despite its name, **Logistic Regression** is a **linear classifier**, not a regression model. It models the **log-odds** of a class being true as a linear function of inputs:
+Despite its name, Logistic Regression is a linear classifier, not a regression model. It models the log-odds of a class being true as a linear function of inputs:
 
 $$
-\log \frac{P(y=1|x)}{1 - P(y=1|x)} = w^\top x + b
+\log \frac{P(y=1 \mid x)}{1 - P(y=1 \mid x)} = w^\top x + b
 $$
 
-Solving for probability gives the **sigmoid form**:
+Solving for probability gives the sigmoid form:
 
 $$
-P(y=1|x) = \sigma(w^\top x + b) = \frac{1}{1 + e^{-(w^\top x + b)}}
+P(y=1 \mid x) = \sigma(w^\top x + b) = \frac{1}{1 + e^{-(w^\top x + b)}}
 $$
 
-For multi-class problems (like the **Iris dataset**), logistic regression generalizes via the **softmax function**:
+For multi-class problems (like the Iris dataset), logistic regression generalizes via the softmax function:
 
 $$
-P(y=k|x) = \frac{e^{w_k^\top x}}{\sum_{j} e^{w_j^\top x}}
+P(y=k \mid x) = \frac{e^{w_k^\top x}}{\sum_{j} e^{w_j^\top x}}
 $$
 
-The model is trained by minimizing the **cross-entropy loss**:
+The model is trained by minimizing the cross-entropy loss:
 
 $$
-\mathcal{L}(w) = -\frac{1}{N} \sum_{i=1}^N \sum_{k} y_{ik} \log P(y_i=k|x_i)
+\mathcal{L}(w) = -\frac{1}{N} \sum_{i=1}^N \sum_{k} y_{ik} \log P(y_i=k \mid x_i)
 $$
-
 
 ### Evaluation
 
@@ -234,25 +228,23 @@ We typically assess classification performance via:
 - **Confusion matrix:** summarizes how often each class was predicted vs. true.
 - **Precision/Recall/F1:** more nuanced metrics for imbalanced data.
 
-For the **Iris dataset**, logistic regression learns a linear boundary in feature space separating species (e.g., *setosa*, *versicolor*, *virginica*).
-
+For the Iris dataset, logistic regression learns a linear boundary in feature space separating species (e.g., *setosa*, *versicolor*, *virginica*).
 
 ### RL Connection
 
-In **Reinforcement Learning**, many problems involve **classification-like decision boundaries**:
-- **Discrete action policies:** modeled using softmax over action preferences 
-   
+In Reinforcement Learning, many problems involve classification-like decision boundaries:
+- Discrete action policies: modeled using softmax over action preferences  
   $$
-  \pi(a|s) = \frac{e^{\theta_a^\top \phi(s)}}{\sum_b e^{\theta_b^\top \phi(s)}}
+  \pi(a \mid s) = \frac{e^{\theta_a^\top \phi(s)}}{\sum_b e^{\theta_b^\top \phi(s)}}
   $$
-  
   — identical to multiclass logistic regression.
-- **Policy gradient** algorithms update parameters based on log-probability gradients, just like logistic regression’s log-likelihood derivatives.
-- **Exploration vs. exploitation** emerges naturally via probabilistic action sampling from these softmax outputs.
+- Policy gradient algorithms update parameters based on log-probability gradients, just like logistic regression’s log-likelihood derivatives.
+- Exploration vs. exploitation emerges naturally via probabilistic action sampling from these softmax outputs.
 
-Thus, logistic regression forms the **conceptual bridge** between supervised learning and **stochastic policy optimization** in RL.
+Thus, logistic regression forms the conceptual bridge between supervised learning and stochastic policy optimization in RL.
 
 
+**Code:**
 ```python
 # Load & split (stratify preserves class balance in the split)
 X, y = datasets.load_iris(return_X_y=True)
@@ -304,7 +296,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Accuracy: 0.9211
     
@@ -320,23 +312,17 @@ Classification report:
 weighted avg     0.9226    0.9211    0.9209        38
 ```
 
-
-    
+   
 ![png](03_scikit-learn_basics_files/03_scikit-learn_basics_6_2.png)
-    
-
-
-
     
 ![png](03_scikit-learn_basics_files/03_scikit-learn_basics_6_3.png)
     
 
-
 ## 4. Model Selection — SVC with GridSearchCV
 
-In machine learning, **model selection** ensures we choose the best hyperparameters for generalization rather than just fitting the training data.
+In machine learning, model selection ensures we choose the best hyperparameters for generalization rather than just fitting the training data.
 
-A **Support Vector Classifier (SVC)** finds a separating hyperplane that maximizes the **margin** between classes:
+A Support Vector Classifier (SVC) finds a separating hyperplane that maximizes the margin between classes:
 
 $$
 \min_{w,b} \frac{1}{2}\|w\|^2 \quad \text{s.t.} \quad y_i(w^\top x_i + b) \ge 1
@@ -346,10 +332,9 @@ The optimization is controlled by two key hyperparameters:
 - $ C $: regularization strength — smaller $C$ allows more margin violations (simpler model).  
 - $ \gamma $: kernel coefficient in the RBF kernel $ K(x_i, x_j) = \exp(-\gamma \|x_i - x_j\|^2) $, controlling smoothness.
 
-
 ### Grid Search & Cross-Validation
 
-`GridSearchCV` systematically explores hyperparameter combinations, training and validating each one via **cross-validation (CV)**.
+`GridSearchCV` systematically explores hyperparameter combinations, training and validating each one via cross-validation (CV).
 
 For example:
 - Split data into *k* folds.  
@@ -364,7 +349,6 @@ $$
 \theta^* = \arg\max_\theta \frac{1}{K}\sum_{k=1}^K \text{Acc}_k(\theta)
 $$
 
-
 ### In Practice
 
 In scikit-learn, this looks like:
@@ -378,16 +362,16 @@ The result object stores:
 - `best_estimator_`: refitted final model
 - `cv_results_`: detailed validation scores
 
-
 ### RL Connection
 
 In Reinforcement Learning, hyperparameter tuning plays a similarly crucial role:
 
 - Learning rates ($\eta$), discount factors ($\gamma$), and entropy coefficients affect stability.
-- Methods like **policy search** or **meta-learning** can be seen as continuous analogues of grid search.
-- In deep RL, adaptive search (like **Population-Based Training**) acts as a scalable form of hyperparameter optimization.
+- Methods like policy search or meta-learning can be seen as continuous analogues of grid search.
+- In deep RL, adaptive search (like Population-Based Training) acts as a scalable form of hyperparameter optimization.
 
 
+**Code:**
 ```python
 # 1) Data split (stratified)
 X, y = datasets.load_digits(return_X_y=True)
@@ -434,15 +418,6 @@ print("Test accuracy:", round(test_acc, 4))
 y_pred = search.predict(X_te)
 print("\nClassification Report (test):\n", classification_report(y_te, y_pred, digits=4))
 
-# 7) Normalized confusion matrix for interpretability
-cm = confusion_matrix(y_te, y_pred, labels=np.unique(y_te), normalize="true")
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(y_te))
-fig, ax = plt.subplots(figsize=(6, 6))
-disp.plot(ax=ax, colorbar=False)
-ax.set_title("Digits — Confusion Matrix (Normalized)")
-plt.tight_layout()
-plt.show()
-
 # Quick glance at top CV configs
 def top_k_cv_results(search, k=5):
     # sort by mean test score (descending)
@@ -455,9 +430,18 @@ def top_k_cv_results(search, k=5):
         print(f"  mean={mean:.4f}±{std:.4f}  |  {params}")
 
 top_k_cv_results(search, k=5)
+
+# 7) Normalized confusion matrix for interpretability
+cm = confusion_matrix(y_te, y_pred, labels=np.unique(y_te), normalize="true")
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(y_te))
+fig, ax = plt.subplots(figsize=(6, 6))
+disp.plot(ax=ax, colorbar=False)
+ax.set_title("Digits — Confusion Matrix (Normalized)")
+plt.tight_layout()
+plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Best params: {'svc__C': 10, 'svc__gamma': 0.003, 'svc__kernel': 'rbf'}
 Best CV score: 0.9852
@@ -476,34 +460,29 @@ Classification Report (test):
            7     1.0000    1.0000    1.0000        45
            8     0.9762    0.9535    0.9647        43
            9     1.0000    0.9556    0.9773        45
-
+    
     accuracy                         0.9822       450
    macro avg     0.9824    0.9821    0.9822       450
 weighted avg     0.9824    0.9822    0.9822       450
+    
+Top 5 CV configs:
+  mean=0.9852±0.0066  |  {'svc__C': 10, 'svc__gamma': 0.003, 'svc__kernel': 'rbf'}
+  mean=0.9829±0.0038  |  {'svc__C': 3, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
+  mean=0.9822±0.0044  |  {'svc__C': 10, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
+  mean=0.9814±0.0041  |  {'svc__C': 1, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
+  mean=0.9800±0.0030  |  {'svc__C': 3, 'svc__gamma': 0.003, 'svc__kernel': 'rbf'}
 ```
 
 
-    
 ![png](03_scikit-learn_basics_files/03_scikit-learn_basics_8_1.png)
-    
-
-
-
-    Top 5 CV configs:
-      mean=0.9852±0.0066  |  {'svc__C': 10, 'svc__gamma': 0.003, 'svc__kernel': 'rbf'}
-      mean=0.9829±0.0038  |  {'svc__C': 3, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
-      mean=0.9822±0.0044  |  {'svc__C': 10, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
-      mean=0.9814±0.0041  |  {'svc__C': 1, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
-      mean=0.9800±0.0030  |  {'svc__C': 3, 'svc__gamma': 0.003, 'svc__kernel': 'rbf'}
 
 
 ## 5. Pipelines & ColumnTransformer (Mixed Data)
 
-Real-world datasets often mix **numerical**, **categorical**, and sometimes **textual** features. Good ML hygiene means **processing each feature type appropriately** before fitting a model.
-
+Real-world datasets often mix numerical, categorical, and sometimes textual features. Good ML hygiene means processing each feature type appropriately before fitting a model.
 
 ### ColumnTransformer
-`ColumnTransformer` allows you to specify **different preprocessing pipelines** for subsets of columns:
+`ColumnTransformer` allows you to specify different preprocessing pipelines for subsets of columns:
 
 $$
 \text{preprocess}(X) = [\text{scale}(X_{\text{num}}), \ \text{onehot}(X_{\text{cat}})]
@@ -524,31 +503,30 @@ ColumnTransformer([
 
 This is then chained with a model inside a single `Pipeline`, ensuring all transformations happen automatically during training and inference.
 
-
 ### Why Pipelines Matter
-- Avoid **data leakage** (preprocessing fitted on train only).
-- Ensure **reproducibility** — consistent transformations in training and testing.
+- Avoid data leakage (preprocessing fitted on train only).
+- Ensure reproducibility — consistent transformations in training and testing.
 - Simplify cross-validation: preprocessing is applied in each fold automatically.
 - Integrate seamlessly with `GridSearchCV`.
-
 
 ### RL Connection
 
 In Reinforcement Learning:
 
-- Pipelines parallel the **data flow** from raw state → features → policy/value function input.
+- Pipelines parallel the data flow from raw state → features → policy/value function input.
 - Different state variables (numerical sensors, categorical events, discrete flags) often require heterogeneous preprocessing.
-- Consistent transformations across experience replay buffers or rollouts are crucial for **stable learning**.
+- Consistent transformations across experience replay buffers or rollouts are crucial for stable learning.
 
 Formally, this mirrors the function composition:
 
 $$
-\pi(a|s) = f_\theta(\text{encode}(s)) = f_\theta([\text{scale}(s_{\text{num}}), \text{embed}(s_{\text{cat}})])
+\pi(a \mid s) = f_\theta(\text{encode}(s)) = f_\theta([\text{scale}(s_{\text{num}}), \text{embed}(s_{\text{cat}})])
 $$
 
 where preprocessing ensures features align correctly for policy or critic networks.
 
 
+**Code:**
 ```python
 # Synthetic mixed features: numeric + categorical
 n = 400
@@ -576,10 +554,11 @@ model.fit(X_tr, y_tr)
 print("Accuracy (mixed features):", round(model.score(X_te, y_te), 4))
 ```
 
-Output:
+**Output:**
 ```
 Accuracy (mixed features): 0.94
 ```
+
 
 ## Key Takeaways
 
