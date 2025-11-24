@@ -6,21 +6,24 @@ nav_order: 7
 has_toc: true
 ---
 
-# Basic Machine Learning
+
+# **Basic Machine Learning**
 
 *Clean, principled ML workflows that we’ll reuse for RL critics, reward models, and diagnostics.*
 
 **What you'll learn**
-- Regression: linear models, train/test split, and error metrics ($MSE$, $MAE$, and $ R^2 $).
+- Regression: linear models, train/test split, and error metrics (MSE/MAE/$R^2$).
 - Classification: logistic regression / SVC, accuracy vs. precision/recall/F1, ROC–AUC.
 - Model validation: cross-validation, bias–variance intuition, and over/underfitting.
 - Good hygiene: feature scaling, pipelines, and reproducible experiments.
 
 > Critics are regressors; policies are classifiers over discrete actions (softmax). Getting ML right makes RL training far easier to debug.
 
+
 ## 0. Introduction to Machine Learning
 
-**Machine Learning (ML)** is the study of algorithms that learn patterns from data and make predictions or decisions without being explicitly programmed. At its core, ML is about **mapping inputs to outputs** using data-driven optimization.
+Machine Learning (ML) is the study of algorithms that learn patterns from data and make predictions or decisions without being explicitly programmed.  
+At its core, ML is about mapping inputs to outputs using data-driven optimization.
 
 Formally, given data samples  
 
@@ -28,7 +31,7 @@ $$
 \mathcal{D} = \{(x_i, y_i)\}_{i=1}^N,
 $$  
 
-ML finds parameters $ \theta $ of a function $ f_\theta(x) $ that minimize a **loss** measuring the discrepancy between predictions and ground truth:  
+ML finds parameters $ \theta $ of a function $ f_\theta(x) $ that minimize a loss measuring the discrepancy between predictions and ground truth:  
 
 $$
 \min_\theta \; \frac{1}{N} \sum_{i=1}^N \mathcal{L}(f_\theta(x_i), y_i).
@@ -41,11 +44,12 @@ Depending on the type of target $y_i$:
 
 **RL Connection:**  
 In Reinforcement Learning, these same principles reappear —  
-- *Value functions* are **regressors** (predicting expected returns).  
-- *Policies* are **classifiers** (predicting action probabilities).  
+- *Value functions* are regressors (predicting expected returns).  
+- *Policies* are classifiers (predicting action probabilities).  
 - *Reward models* and *critics* use standard ML losses (MSE, cross-entropy) to learn from interaction data.
 
 
+**Code:**
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -61,24 +65,26 @@ from sklearn.metrics import (
 )
 ```
 
+
 ## 1. Regression — Theory
 
-Given input–target pairs $$ \{(x_i, y_i)\}_{i=1}^N $$ with $y_i \in \mathbb{R}$, a regressor $f_\theta(x)$ is trained by minimizing an error objective, commonly **Mean Squared Error (MSE)**:
+Given input–target pairs $ \{(x_i, y_i)\}_{i=1}^N $ with $y_i \in \mathbb{R}$, a regressor $f_\theta(x)$ is trained by minimizing an error objective, commonly Mean Squared Error (MSE):
 
 $$
 \mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \big(f_\theta(x_i) - y_i\big)^2.
 $$
 
 Other useful metrics include:
-- **MAE:** $$ \frac{1}{N}\sum_i \\|f_\theta(x_i)-y_i\| $$ (robust to outliers)  
-- **$R^2$:** $$ 1 - \frac{\sum_i (y_i-\hat y_i)^2}{\sum_i (y_i-\bar y)^2} $$ (explained variance)
+- **MAE:** $ \frac{1}{N}\sum_i \|f_\theta(x_i)-y_i\| $ (robust to outliers)  
+- **$R^2$:** $ 1 - \frac{\sum_i (y_i-\hat y_i)^2}{\sum_i (y_i-\bar y)^2} $ (explained variance)
 
 **Scaling matters:** Feature normalization often improves gradient convergence and model stability.
 
 **RL Connection:**  
-Regression is fundamental in RL — critics and Q-functions predict expected returns $ \hat{V}(s) \approx \mathbb{E}[G_t | S_t=s] $, optimizing the same MSE loss as standard regression models.
+Regression is fundamental in RL — critics and Q-functions predict expected returns $ \hat{V}(s) \approx \mathbb{E}[G_t \mid S_t=s] $, optimizing the same MSE loss as standard regression models.
 
 
+**Code:**
 ```python
 # LinearRegression vs Ridge on Diabetes dataset
 
@@ -162,66 +168,59 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 LinearRegression: {'MSE': 2848.311, 'MAE': 41.549, 'R2': 0.485}
 Ridge(alpha=1.0): {'MSE': 2842.835, 'MAE': 41.507, 'R2': 0.486}
 ```
 
-
     
 ![png](06_basic_machine_learning_files/06_basic_machine_learning_4_1.png)
-    
-
-
-
     
 ![png](06_basic_machine_learning_files/06_basic_machine_learning_4_2.png)
     
 
-
 ## 2. Classification — Theory
 
-In **classification**, we predict discrete class labels $ y \in \{1, 2, \dots, K\} $ given input features $ x $. The model outputs **class probabilities** $ p_\theta(y \mid x) $, and training seeks to minimize the **cross-entropy loss**:
+In classification, we predict discrete class labels $ y \in \{1, 2, \dots, K\} $ given input features $ x $.  
+The model outputs class probabilities $ p_\theta(y \mid x) $, and training seeks to minimize the cross-entropy loss:
 
 $$
 \mathcal{L}(\theta)
-= -\frac{1}{N} \sum_{i=1}^N \log p_\theta(y_i|x_i)
+= -\frac{1}{N} \sum_{i=1}^N \log p_\theta(y_i \mid x_i)
 $$
 
-For binary classification (e.g., logistic regression),  
+For binary classification (e.g., logistic regression),
 
 $$
-p_\theta(y=1|x) = \sigma(w^\top x + b),
+p_\theta(y=1 \mid x) = \sigma(w^\top x + b),
 $$
 
-where $ \sigma(z) = \frac{1}{1 + e^{-z}} $ is the **sigmoid function**.
-
+where $ \sigma(z) = \frac{1}{1 + e^{-z}} $ is the sigmoid function.
 
 ### Key Evaluation Metrics
 
 | Metric | Formula / Idea | Use |
 |---------|----------------|-----|
-| **Accuracy** | $ \frac{\text{\# correct}}{\text{\# total}} $ | Quick global metric |
-| **Precision / Recall** | Precision = $ \frac{TP}{TP + FP} $; Recall = $ \frac{TP}{TP + FN} $ | Handle class imbalance |
-| **ROC–AUC** | Area under ROC curve | Measures threshold-independent ranking ability |
-
+| Accuracy | $ \frac{\text{\# correct}}{\text{\# total}} $ | Quick global metric |
+| Precision / Recall / F1 | Precision = $ \frac{TP}{TP + FP} $; Recall = $ \frac{TP}{TP + FN} $ | Handle class imbalance |
+| ROC–AUC | Area under ROC curve | Measures threshold-independent ranking ability |
 
 ### Practical Tips
 
-- **Feature scaling** is crucial for gradient-based models (e.g., Logistic Regression, SVM).  
-- Use **Pipelines** to ensure preprocessing (e.g., `StandardScaler`) occurs inside cross-validation folds → prevents **data leakage**.  
-- In multi-class problems, **softmax regression** generalizes logistic regression.
-
+- Feature scaling is crucial for gradient-based models (e.g., Logistic Regression, SVM).  
+- Use Pipelines to ensure preprocessing (e.g., `StandardScaler`) occurs inside cross-validation folds → prevents data leakage.  
+- In multi-class problems, softmax regression generalizes logistic regression.
 
 ### RL Connection
 
 Classification concepts directly transfer to RL tasks:
-- **Policy Learning:** A stochastic policy $ \pi(a\|s) $ predicts *action probabilities* — like a softmax classifier over actions.  
+- **Policy Learning:** A stochastic policy $ \pi(a \mid s) $ predicts *action probabilities* — like a softmax classifier over actions.  
 - **Reward Classification:** In inverse RL or preference learning, models classify which actions lead to higher returns.  
 - **Exploration:** Action distributions with entropy regularization resemble probabilistic classifiers balancing exploration vs. exploitation.
 
 
+**Code:**
 ```python
 # Data
 X, y = datasets.load_iris(return_X_y=True)
@@ -269,23 +268,20 @@ plt.title("Iris — Confusion Matrix")
 plt.tight_layout()
 plt.show()
 ```
-Output:
+
+**Output:**
 ```
 {'accuracy': 0.9211, 'precision': 0.9246, 'recall': 0.9231, 'f1': 0.923}
 Macro ROC-AUC (OvR): 0.996
 ```
 
 
-
-    
 ![png](06_basic_machine_learning_files/06_basic_machine_learning_6_2.png)
     
 
-
 ## 3. Model Validation — Cross-Validation & Bias–Variance
 
-In **machine learning**, we aim to estimate how well a model generalizes to unseen data.  
-Simple train–test splits can be unreliable for small datasets — **Cross-Validation (CV)** mitigates this by averaging performance across multiple folds.
+In machine learning, we aim to estimate how well a model generalizes to unseen data. Simple train–test splits can be unreliable for small datasets — Cross-Validation (CV) mitigates this by averaging performance across multiple folds.
 
 ### Cross-Validation (CV)
 Data is divided into $K$ folds:
@@ -301,9 +297,8 @@ $$
 
 This ensures a more stable estimate of model performance and reduces dependence on any single data split.
 
-
 ### Bias–Variance Trade-off
-The **total prediction error** can be decomposed as:
+The total prediction error can be decomposed as:
 
 $$
 \text{Error} = \text{Bias}^2 + \text{Variance} + \text{Irreducible Noise}.
@@ -315,18 +310,18 @@ $$
 
 Balancing both is key to strong generalization — tuning hyperparameters via CV directly controls this balance.
 
-
 ### RL Connection
 Cross-validation parallels evaluation in Reinforcement Learning:
-- RL agents require **policy evaluation** (e.g., Monte Carlo rollouts) to estimate performance.
-- Bias–variance trade-offs appear in **value estimation**:  
+- RL agents require policy evaluation (e.g., Monte Carlo rollouts) to estimate performance.
+- Bias–variance trade-offs appear in value estimation:  
   - *Monte Carlo* → low bias, high variance.  
   - *Temporal Difference (TD)* → higher bias, lower variance.  
   - *λ-returns* interpolate between the two, analogous to regularization in supervised learning.
 
-Both domains rely on the same principle: balancing **fit vs. stability** for optimal generalization and learning efficiency.
+Both domains rely on the same principle: balancing fit vs. stability for optimal generalization and learning efficiency.
 
 
+**Code:**
 ```python
 # SVC model selection with GridSearchCV — reports + heatmap + confusion matrix
 
@@ -414,7 +409,6 @@ for i in range(len(Cs)):
 plt.tight_layout()
 plt.show()
 
-
 # Confusion matrix on test set
 cm = confusion_matrix(y_te, y_hat, labels=np.unique(y))
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(y))
@@ -425,7 +419,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Best params: {'svc__C': 5, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
 Best CV score: 0.9829
@@ -437,24 +431,19 @@ Top 3 CV configs:
   mean=0.9814 ± 0.0041 | {'svc__C': 1, 'svc__gamma': 0.01, 'svc__kernel': 'rbf'}
 ```
 
-
     
 ![png](06_basic_machine_learning_files/06_basic_machine_learning_8_1.png)
-    
-
-
-
-    
+ 
 ![png](06_basic_machine_learning_files/06_basic_machine_learning_8_2.png)
     
-
 
 ## 4. RL Tie‑In (Why this matters)
 
 - **Critics as Regressors:** value/Q estimates minimize squared TD errors (an MSE).  
 - **Policies as Classifiers:** discrete actions often use a softmax head; evaluation benefits from precision/recall-like diagnostics when actions are imbalanced.  
-- **Validation Mindset:** although RL is non‑IID, careful train/validation splits for **offline RL** or synthetic rollouts help compare algorithms fairly.  
+- **Validation Mindset:** although RL is non‑IID, careful train/validation splits for offline RL or synthetic rollouts help compare algorithms fairly.  
 - **Pipelines & Scaling:** the same preprocessing discipline reduces instability when training function approximators in RL.
+
 
 ## Key Takeaways
 
