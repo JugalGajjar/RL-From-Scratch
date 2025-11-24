@@ -6,18 +6,19 @@ nav_order: 10
 has_toc: true
 ---
 
-# End-to-End Linear Regression Project  
+
+# **End-to-End Linear Regression Project**
 *California Housing Prices: from raw data → model → mini "deployment".*
 
 **Goal:**  
 Build a complete regression pipeline on a real-world dataset:
 
 - Load and inspect a real housing dataset (California census tracts).  
-- Perform **EDA**: distributions, correlations, feature–target relationships.  
-- Do basic **preprocessing** and train–validation splitting.  
-- Train and compare several **linear models** (OLS, Ridge, Lasso).  
-- Evaluate with **MSE / MAE / R²**, plus visual diagnostics.  
-- Wrap the best model into a tiny **prediction function** as a mini “deployment”.
+- Perform EDA: distributions, correlations, feature–target relationships.  
+- Do basic preprocessing and train–validation splitting.  
+- Train and compare several linear models (OLS, Ridge, Lasso).  
+- Evaluate with MSE / MAE / R², plus visual diagnostics.  
+- Wrap the best model into a tiny prediction function as a mini “deployment”.
 
 This project glues together ideas from:
 
@@ -26,6 +27,7 @@ This project glues together ideas from:
 - Basic ML (regression, regularization, model selection)
 
 
+**Code:**
 ```python
 import numpy as np
 import pandas as pd
@@ -48,20 +50,22 @@ plt.rcParams["figure.figsize"] = (6.4, 3.8)
 plt.rcParams["axes.titlesize"] = 12
 ```
 
+
 ## 1. Dataset & Problem Statement
 
-We’ll use **California housing** data:
+We’ll use California housing data:
 
-- Each row = a **census block group** in California.
+- Each row = a census block group in California.
 - Features (per block): median income, house age, average rooms, population, latitude/longitude, etc.
-- Target: `MedHouseVal` — **median house value (in \$100,000s)**.
+- Target: `MedHouseVal` — median house value (in \$100,000s).
 
 **Task:**  
 Given block-level features, predict the median house value.
 
-This is a **tabular regression** problem, very typical in applied ML.
+This is a tabular regression problem, very typical in applied ML.
 
 
+**Code:**
 ```python
 # Load into DataFrame
 cal = fetch_california_housing(as_frame=True)
@@ -71,13 +75,10 @@ print("Shape:", df.shape)
 df.head()
 ```
 
-Output:
+**Output:**
 ```
 Shape: (20640, 9)
 ```
-
-
-
 
 <div>
 <style scoped>
@@ -174,12 +175,12 @@ Shape: (20640, 9)
 </div>
 
 
-
-
+**Code:**
 ```python
 df.info()
 ```
-Output:
+
+**Output:**
 ```
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 20640 entries, 0 to 20639
@@ -199,25 +200,26 @@ dtypes: float64(9)
 memory usage: 1.4 MB
 ```
 
+
 ## 2. Exploratory Data Analysis (EDA)
 
 Questions we’ll quickly explore:
 
 - What are the ranges and scales of each feature?
 - Are there obvious outliers or heavy skew?
-- Which features correlate most with **house value**?
+- Which features correlate most with house value?
 - How does the target distribution look?
 
 This guides preprocessing (e.g., scaling, transforms) and model choice.
 
 
+**Code:**
 ```python
 # Descriptive Stats & Target Distribution
 df.describe().T
 ```
-Output:
 
-
+**Output:**
 
 <div>
 <style scoped>
@@ -352,8 +354,7 @@ Output:
 </div>
 
 
-
-
+**Code:**
 ```python
 # Target Histogram
 plt.figure()
@@ -364,13 +365,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-
     
 ![png](09_linear_regression_project_files/09_linear_regression_project_7_0.png)
     
 
-
-
+**Code:**
 ```python
 # Feature Histograms
 fig, axes = plt.subplots(2, 4, figsize=(12, 5))
@@ -385,20 +384,17 @@ plt.show()
 ```
 
 
-    
 ![png](09_linear_regression_project_files/09_linear_regression_project_8_0.png)
     
 
-
-
+**Code:**
 ```python
 # Correlation with target
 corr = df.corr(numeric_only=True)
 corr["MedHouseVal"].sort_values(ascending=False)
 ```
 
-
-Output
+**Output:**
 ```
 MedHouseVal    1.000000
 MedInc         0.688075
@@ -413,7 +409,7 @@ Name: MedHouseVal, dtype: float64
 ```
 
 
-
+**Code:**
 ```python
 # Correlation Heatmap
 plt.figure(figsize=(7, 5))
@@ -423,13 +419,11 @@ plt.tight_layout()
 plt.show()
 ```
 
-
     
 ![png](09_linear_regression_project_files/09_linear_regression_project_10_0.png)
     
 
-
-
+**Code:**
 ```python
 # Key Feature vs Target Scatter
 key_features = ["MedInc", "AveRooms", "HouseAge", "Latitude", "Longitude"]
@@ -446,24 +440,23 @@ plt.show()
 ```
 
 
-    
 ![png](09_linear_regression_project_files/09_linear_regression_project_11_0.png)
     
-
 
 ## 3. Train/Validation Split & Baseline
 
 We’ll:
 
-1. Split data into **train** and **test** sets (80/20).
-2. Build a **naive baseline** that always predicts the *training* mean of the target.
+1. Split data into train and test sets (80/20).
+2. Build a naive baseline that always predicts the *training* mean of the target.
 3. Compare all later models against this baseline using:
 
-- **MSE** (Mean Squared Error)  
-- **MAE** (Mean Absolute Error)  
-- **R²** (coefficient of determination)
+- MSE (Mean Squared Error)  
+- MAE (Mean Absolute Error)  
+- R² (coefficient of determination)
 
 
+**Code:**
 ```python
 X = df.drop(columns=["MedHouseVal"])
 y = df["MedHouseVal"].values
@@ -486,7 +479,8 @@ def metrics_dict(y_true, y_pred):
 
 print("Baseline metrics:", {k: round(v, 3) for k, v in metrics_dict(y_test, baseline_pred).items()})
 ```
-Output:
+
+**Output:**
 ```
 Train shape: (16512, 8) Test shape: (4128, 8)
 Baseline metrics: {'MSE': 1.311, 'MAE': 0.906, 'R2': -0.0}
@@ -494,7 +488,7 @@ Baseline metrics: {'MSE': 1.311, 'MAE': 0.906, 'R2': -0.0}
 
 ## 4. Preprocessing & Linear Models
 
-We’ll build three linear models wrapped in **Pipelines**:
+We’ll build three linear models wrapped in Pipelines:
 
 1. **OLS** — `LinearRegression` with feature standardization.
 2. **Ridge** — L2-regularized regression (controls weight magnitude).
@@ -503,6 +497,7 @@ We’ll build three linear models wrapped in **Pipelines**:
 All preprocessing (here, `StandardScaler`) happens *inside* the pipeline to avoid data leakage.
 
 
+**Code:**
 ```python
 models = {
     "OLS": Pipeline([
@@ -533,9 +528,8 @@ results_df = pd.DataFrame(results).set_index("Model").sort_values("R2", ascendin
 results_df
 ```
 
+**Output:**
 
-
-Output:
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -589,8 +583,7 @@ Output:
 </div>
 
 
-
-
+**Code:**
 ```python
 # Pick Best Model & Diagnostics
 best_name = results_df["R2"].idxmax()
@@ -622,7 +615,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Best model by R² on test set: Lasso(α=0.001)
 MSE    0.5545
@@ -632,20 +625,14 @@ Name: Lasso(α=0.001), dtype: float64
 ```
 
 
-    
 ![png](09_linear_regression_project_files/09_linear_regression_project_16_1.png)
-    
-
-
-
     
 ![png](09_linear_regression_project_files/09_linear_regression_project_16_2.png)
     
 
-
 ## 5. Cross-Validation & Hyperparameters (Ridge)
 
-We’ll tune the Ridge regularization strength $\alpha$ using **cross-validation** on the training set.
+We’ll tune the Ridge regularization strength $\alpha$ using cross-validation on the training set.
 
 - Small $\alpha$: low regularization, risk of overfitting.  
 - Large $\alpha$: stronger shrinkage, may underfit.
@@ -657,6 +644,7 @@ We’ll:
 3. Pick the best $\alpha$ and compare against our previous best model.
 
 
+**Code:**
 ```python
 alphas = np.logspace(-3, 2, 10)
 cv_scores = []
@@ -686,19 +674,18 @@ plt.title("Ridge regularization path")
 plt.tight_layout()
 plt.show()
 ```
-Output:
+
+**Output:**
 ```
 Best alpha by CV: 0.001
 Best mean CV R²: 0.6115
 ```
 
-    
+
 ![png](09_linear_regression_project_files/09_linear_regression_project_18_0.png)
+    
 
-
-
-
-
+**Code:**
 ```python
 # Train Final Ridge & Compare
 ridge_best = Pipeline([
@@ -711,7 +698,7 @@ metrics_ridge_best = {k: round(v, 4) for k, v in metrics_dict(y_test, y_pred_rid
 metrics_ridge_best
 ```
 
-Output:
+**Output:**
 ```
 {'MSE': 0.5559, 'MAE': 0.5332, 'R2': 0.5758}
 ```
@@ -727,11 +714,12 @@ In a real project, the trained pipeline would be:
 
 Here, we’ll simulate a *single prediction* function:
 
-- Train the chosen model on **all** data (train + test).  
+- Train the chosen model on all data (train + test).  
 - Define `predict_median_value(features_dict)` that takes a Python `dict` and returns a prediction.  
 - Try it on a realistic example (e.g., middle-income block near the coast).
 
 
+**Code:**
 ```python
 deployed_model = ridge_best
 
@@ -768,24 +756,26 @@ example_features = {
 pred_val = predict_median_value(example_features)
 print(f"Predicted median house value: {pred_val:.3f} × 100k USD (~${pred_val*100_000:,.0f})")
 ```
-Output:
+
+**Output:**
 ```
 Features: ['MedInc', 'HouseAge', 'AveRooms', 'AveBedrms', 'Population', 'AveOccup', 'Latitude', 'Longitude']
 Predicted median house value: 2.987 × 100k USD (~$298,739)
 ```
 
+
 ## 7. Project Summary & Next Steps
 
-- Loaded and explored the **California housing** dataset (real census data).  
-- Performed **EDA**: distributions, correlations, and key feature–target plots.  
-- Built a **train/test split** and a **mean baseline** for comparison.  
-- Trained and evaluated **OLS, Ridge, and Lasso** models with proper scaling.  
-- Used **Ridge + cross-validation** to choose a regularization strength.  
-- Wrapped the final model into a small **prediction helper**, mimicking deployment.
+- Loaded and explored the California housing dataset (real census data).  
+- Performed EDA: distributions, correlations, and key feature–target plots.  
+- Built a train/test split and a mean baseline for comparison.  
+- Trained and evaluated OLS, Ridge, and Lasso models with proper scaling.  
+- Used Ridge + cross-validation to choose a regularization strength.  
+- Wrapped the final model into a small prediction helper, mimicking deployment.
 
 This project solidifies:
 
 - How linear regression behaves on real, noisy data.  
 - How to structure an end-to-end ML workflow (EDA → preprocessing → modeling → evaluation → deployment sketch).  
 
-> **Next:** Build `10_cnn_image_classification_project.ipynb` for a vision-based classification task. Then move on to **Phase 1 — RL Fundamentals** (MDPs, Bellman equations, DP, Monte Carlo, TD).
+> **Next:** Build `10_cnn_image_classification_project.ipynb` for a vision-based classification task. Then move on to `Phase 1 — Fundamentals` (MDPs, Bellman equations, DP, Monte Carlo, TD).
