@@ -6,7 +6,8 @@ nav_order: 9
 has_toc: true
 ---
 
-# Introduction to Markov Chains
+
+# **Introduction to Markov Chains**
 *A visual, hands‑on primer with NumPy + Matplotlib*
 
 **What you'll learn**
@@ -14,29 +15,31 @@ has_toc: true
 - Simulating Markov chains & visualizing convergence
 - Stationary distributions, ergodicity, mixing
 - Absorbing chains & absorption probabilities
-- Markov **Reward** Processes (MRPs) and Bellman equations (link to RL)
+- Markov Reward Processes (MRPs) and Bellman equations (link to RL)
 - Mini PageRank demo
 
 > **How to use:** Read each *Theory* block, then run the following code cells.
 
+
 ## 1. Markov Chains — Core Ideas
 
-A **discrete-time Markov chain (DTMC)** is a sequence of random variables $X_0, X_1, \ldots$ on a finite state space $\mathcal{S} = \{1,\dots,n\}$ satisfying the **Markov property**:
+A discrete-time Markov chain (DTMC) is a sequence of random variables $X_0, X_1, \ldots$ on a finite state space $\mathcal{S} = \{1,\dots,n\}$ satisfying the Markov property:
 
 $$
-\Pr[X_{t+1}=j|X_t=i, X_{t-1},\dots] 
+\Pr[X_{t+1}=j \mid X_t=i, X_{t-1},\dots] 
 \;=\; 
-\Pr[X_{t+1}=j|X_t=i]
+\Pr[X_{t+1}=j \mid X_t=i]
 \;=\;
 P_{ij}.
 $$
 
-The matrix $P \in \mathbb{R}^{n \times n}$ is the **transition matrix**, where:
+The matrix $P \in \mathbb{R}^{n \times n}$ is the transition matrix, where:
 
 - $P_{ij} \ge 0$
 - $\sum_j P_{ij} = 1$ (each row is a probability distribution)
-- A **state distribution** is a row vector $\mu \in \Delta^{n-1}$.
+- A state distribution is a row vector $\mu \in \Delta^{n-1}$.
 - One-step evolution:  
+  
   $$
   \mu_{t+1} = \mu_t P .
   $$
@@ -44,29 +47,29 @@ The matrix $P \in \mathbb{R}^{n \times n}$ is the **transition matrix**, where:
 **k-step transitions (Chapman–Kolmogorov):**
 
 $$
-\Pr[X_{t+k}=j|X_t=i] = (P^k)_{ij},
+\Pr[X_{t+k}=j \mid X_t=i] = (P^k)_{ij},
 \qquad
 \mu_{t+k} = \mu_t P^k.
 $$
 
 This shows how a Markov chain evolves over time via matrix powers.
 
-
 ### Why this matters for RL
 
-In reinforcement learning, an **MDP** augments Markov chains with *actions*. For each action $a$, there is a transition matrix $P^a$. A fixed policy $\pi(a\|s)$ induces a **Markov chain over states** with:
+In reinforcement learning, an MDP augments Markov chains with *actions*. For each action $a$, there is a transition matrix $P^a$. A fixed policy $\pi(a \mid s)$ induces a Markov chain over states with:
 
 $$
 P^\pi = \sum_{a} \Pi_a \, P^a,
 $$
 
-where $\Pi_a = \mathrm{diag}(\pi(a\|s_1), \ldots, \pi(a\|s_n))$.
+where $\Pi_a = \mathrm{diag}(\pi(a \mid s_1), \ldots, \pi(a \mid s_n))$.
 
 Thus, many RL concepts — stationary distributions, mixing, long-term visitation frequencies, discounted returns — rest directly on Markov chain behavior.
 
 Markov chains are the foundation for understanding value functions, policy evaluation, and the dynamics of exploration in MDPs.
 
 
+**Code:**
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
@@ -120,26 +123,24 @@ plt.tight_layout()
 plt.show()
 ```
 
-Output:
+**Output:**
 ```
-Row sums (should be 1.0): [1. 1. 1. 1.]
+    Row sums (should be 1.0): [1. 1. 1. 1.]
     
-Distribution after 1 step (pi1): [0.1  0.85 0.05 0.  ]
-Distribution after 5 steps (pi5): [0.292 0.467 0.133 0.107]
-Distribution after 10 steps (pi10): [0.198 0.315 0.294 0.193]
-Distribution after 15 steps (pi15): [0.214 0.252 0.27  0.264]
-Distribution after 20 steps (pi20): [0.24  0.246 0.245 0.269]
+    Distribution after 1 step (pi1): [0.1  0.85 0.05 0.  ]
+    Distribution after 5 steps (pi5): [0.292 0.467 0.133 0.107]
+    Distribution after 10 steps (pi10): [0.198 0.315 0.294 0.193]
+    Distribution after 15 steps (pi15): [0.214 0.252 0.27  0.264]
+    Distribution after 20 steps (pi20): [0.24  0.246 0.245 0.269]
 ```
 
 
-    
 ![png](08_markov_chains_intro_files/08_markov_chains_intro_2_1.png)
     
 
-
 ## 2. Stationary Distribution & Ergodicity
 
-A distribution $\pi^*$ is **stationary** for a Markov chain with transition matrix $P$ if:
+A distribution $\pi^*$ is stationary for a Markov chain with transition matrix $P$ if:
 
 $$
 \pi^* = \pi^* P, 
@@ -147,12 +148,12 @@ $$
 \qquad \pi^*_i \ge 0.
 $$
 
-It is a **fixed point** of the dynamics — once the chain reaches $\pi^*$, it stays there forever.
+It is a fixed point of the dynamics — once the chain reaches $\pi^*$, it stays there forever.
 
 ### Ergodicity
-A finite Markov chain is **ergodic** if it is:
-- **Irreducible** (all states communicate), and  
-- **Aperiodic** (no deterministic cycles).
+A finite Markov chain is ergodic if it is:
+- Irreducible (all states communicate), and  
+- Aperiodic (no deterministic cycles).
 
 For an ergodic chain:
 
@@ -160,13 +161,13 @@ $$
 \lim_{t \to \infty} \pi_0 P^t = \pi^*, 
 $$
 
-meaning **all initial distributions converge** to the same stationary distribution. This is the long-run behavior of the system.
+meaning all initial distributions converge to the same stationary distribution. This is the long-run behavior of the system.
 
 ### Computing $\pi^*$
 Several equivalent methods:
-- As the **left eigenvector** of $P$ for eigenvalue 1:  
+- As the left eigenvector of $P$ for eigenvalue 1:  
   
-  $$
+  $
   \pi^* P = \pi^*.
   $$
 
@@ -176,24 +177,25 @@ Several equivalent methods:
   (I - P^\top)\pi = 0, \qquad \sum_i \pi_i = 1.
   $$
 
-- Empirically by **power iteration**: repeatedly apply $P$ to any distribution vector.
+- Empirically by power iteration: repeatedly apply $P$ to any distribution vector.
 
 ### RL Connection
-In Reinforcement Learning, a **policy $\pi(a|s)$** induces a Markov chain over states with transition matrix:
+In Reinforcement Learning, a policy $\pi(a \mid s)$ induces a Markov chain over states with transition matrix:
 
 $$
-P^{\pi}(s'|s) = \sum_a \pi(a|s)\, P(s'|s, a).
+P^{\pi}(s' \mid s) = \sum_a \pi(a \mid s)\, P(s' \mid s, a).
 $$
 
-Its stationary distribution $d^{\pi}$ describes **how often the agent visits each state** in the long run.  
+Its stationary distribution $d^{\pi}$ describes how often the agent visits each state in the long run.  
 This distribution directly affects:
-- **State visitation frequencies** (important for exploration),
-- **Policy gradient estimates** (reward expectations weighted by $d^{\pi}$),
-- **Value function definitions** in continuing tasks.
+- State visitation frequencies (important for exploration),
+- Policy gradient estimates (reward expectations weighted by $d^{\pi}$),
+- Value function definitions in continuing tasks.
 
 > In short: *stationary distributions tell us what the agent “sees” most often under a fixed policy.*
 
 
+**Code:**
 ```python
 # Evolve distribution over time (needed for empirical distribution)
 T = 2000
@@ -235,7 +237,7 @@ plt.ylabel("probability"); plt.title("Stationary vs empirical distribution")
 plt.legend(); plt.tight_layout(); plt.show()
 ```
 
-Output:
+**Output:**
 ```
 Eigenvalue closest to 1: (1.000000000000002+0j)
 Stationary distribution π*: [0.242 0.258 0.242 0.258]
@@ -243,19 +245,17 @@ Empirical (T = 2000): [0.242 0.258 0.242 0.258]
 L1 difference ||π* - empirical||₁: 2.942091015256665e-15
 ```
 
-
     
 ![png](08_markov_chains_intro_files/08_markov_chains_intro_4_1.png)
     
 
-
 ## 3. Absorbing Chains & Absorption Probabilities
 
-A **Markov chain** is *absorbing* if it contains at least one **absorbing state** (i.e., a state $ i $ such that $P_{ii} = 1$) and from any other state there is a path to some absorbing state.
+A Markov chain is *absorbing* if it contains at least one absorbing state (i.e., a state $ i $ such that $P_{ii} = 1$) and from any other state there is a path to some absorbing state.
 
 We reorder the states into:
-- **Transient states** $T$
-- **Absorbing states** $A$
+- Transient states $T$
+- Absorbing states $A$
 
 so that the transition matrix becomes block-structured:
 
@@ -275,7 +275,7 @@ where:
 
 ### Fundamental Matrix
 
-The **fundamental matrix** is:
+The fundamental matrix is:
 
 $$
 N = (I - Q)^{-1},
@@ -295,18 +295,19 @@ where $B_{ij}$ is the probability of eventual absorption in absorbing state $j$ 
 
 ### RL Connection
 
-Absorbing chains relate directly to **episodic RL**:
+Absorbing chains relate directly to episodic RL:
 
-- Termination states in an MDP correspond to **absorbing states**
+- Termination states in an MDP correspond to absorbing states
 - The matrix $Q$ describes transient transitions before the episode ends
-- Absorption probabilities mirror **termination likelihoods**, relevant for:
+- Absorption probabilities mirror termination likelihoods, relevant for:
   - episodic value calculations,
   - analyzing horizon lengths,
   - proving convergence of TD methods on finite MDPs.
 
-Absorbing MDPs are also the basis of **absorbing Markov decision processes**, useful in safety-constrained RL and risk analysis.
+Absorbing MDPs are also the basis of absorbing Markov decision processes, useful in safety-constrained RL and risk analysis.
 
 
+**Code:**
 ```python
 # Toy absorbing chain: states 0,1 transient; states 2,3 absorbing
 P_abs = np.array([
@@ -340,7 +341,7 @@ print("\nAbsorption probabilities B = N R:\n", B)
 print("\nRow sums of B (should be ~1):", B.sum(axis=1))
 ```
 
-Output:
+**Output:**
 ```
 Q (transient→transient):
  [[0.5 0.4]
@@ -361,9 +362,10 @@ Absorption probabilities B = N R:
 Row sums of B (should be ~1): [1. 1.]
 ```
 
-## 4. Markov **Reward** Processes (MRPs) & the Bellman Equation
 
-A **Markov Reward Process (MRP)** adds *rewards* and *discounting* to a Markov chain. Formally, an MRP is a tuple $(\mathcal{S}, P, r, \gamma)$:
+## 4. Markov Reward Processes (MRPs) & the Bellman Equation
+
+A Markov Reward Process (MRP) adds *rewards* and *discounting* to a Markov chain. Formally, an MRP is a tuple $(\mathcal{S}, P, r, \gamma)$:
 
 - $P$: transition matrix  
 - $r(s)$: expected immediate reward in state $s$  
@@ -371,10 +373,10 @@ A **Markov Reward Process (MRP)** adds *rewards* and *discounting* to a Markov c
 - Value function:
   
   $$
-  v(s) = \mathbb{E}\left[\sum_{t=0}^\infty \gamma^t R_{t}|S_0=s\right]
+  v(s) = \mathbb{E}\left[\sum_{t=0}^\infty \gamma^t R_{t} \mid S_0=s\right]
   $$
 
-The **Bellman equation** for MRPs is:
+The Bellman equation for MRPs is:
 
 $$
 v = r + \gamma P v
@@ -387,10 +389,10 @@ v = (I - \gamma P)^{-1} r.
 $$
 
 ### Why this matters for RL
-- In an **MDP**, picking a policy $\pi(a\|s)$ induces an MRP with transition matrix:
+- In an MDP, picking a policy $\pi(a \mid s)$ induces an MRP with transition matrix:
   
   $$
-  P^\pi = \sum_{a} \pi(a|s) P^{a}
+  P^\pi = \sum_{a} \pi(a \mid s) P^{a}
   $$
 
 - Policy evaluation reduces to solving:
@@ -405,6 +407,7 @@ $$
 This section bridges Markov chains → MRPs → full RL.
 
 
+**Code:**
 ```python
 # Markov Reward Process (MRP) Evaluation
 
@@ -436,7 +439,7 @@ err = np.max(np.abs(v_closed - v_it))
 print("Max difference:", round(err, 6))
 ```
 
-Output:
+**Output:**
 ```
 Closed-form value v: [5.6715 4.8031 5.3517 5.2927]
 Iterative value v: [5.6715 4.8031 5.3517 5.2927]
@@ -446,10 +449,9 @@ Max difference: 1e-06
 
 ## 5. Mini PageRank (Random Surfer Model)
 
-PageRank models a **random surfer** on a directed graph.  
-If a webpage has outgoing links, the surfer follows one at random; otherwise, they **teleport** uniformly.
+PageRank models a random surfer on a directed graph. If a webpage has outgoing links, the surfer follows one at random; otherwise, they teleport uniformly.
 
-Given a link matrix $S$ (row-stochastic) and damping factor $\alpha \in (0,1)$, the **Google transition matrix** is:
+Given a link matrix $S$ (row-stochastic) and damping factor $\alpha \in (0,1)$, the Google transition matrix is:
 
 $$
 P_{\alpha} \;=\; \alpha S \;+\; (1-\alpha)\frac{1}{n}\mathbf{1}\mathbf{1}^\top,
@@ -460,23 +462,24 @@ where:
 - $ (1-\alpha) $ is the probability of teleportation to any page.
 - $n$ is the number of nodes.
 
-The **PageRank vector** $ \pi^* $ is the stationary distribution:
+The PageRank vector $ \pi^* $ is the stationary distribution:
 
 $$
 \pi^* = \pi^* P_{\alpha}, 
 \quad \sum_i \pi^*_i = 1.
 $$
 
-Because $P_\alpha$ is **irreducible** and **aperiodic**, it has a **unique** stationary distribution, and power iteration converges rapidly.
+Because $P_\alpha$ is irreducible and aperiodic, it has a unique stationary distribution, and power iteration converges rapidly.
 
 ### RL Connection
-PageRank is mathematically identical to evaluating the **value distribution** of a random policy in an MDP with:
+PageRank is mathematically identical to evaluating the value distribution of a random policy in an MDP with:
 - teleportation → exploration bonus,
 - link structure → transition probabilities.
 
-This mirrors **entropy-regularized RL** and **stochastic policies** where transitions combine structured dynamics with exploration.
+This mirrors entropy-regularized RL and stochastic policies where transitions combine structured dynamics with exploration.
 
 
+**Code:**
 ```python
 np.set_printoptions(precision=4, suppress=True)
 
@@ -534,10 +537,9 @@ plt.ylabel("PageRank score")
 plt.title("Mini PageRank on 4-node webgraph")
 plt.tight_layout()
 plt.show()
-
 ```
 
-Output:
+**Output:**
 ```
 Link matrix S:
 [[0.  0.5 0.5 0. ]
@@ -557,11 +559,9 @@ Eigenvalue closest to 1: (1.0000000000000009+0j)
 PageRank π*: [0.3374 0.1809 0.2578 0.2239]  sum: 1.0
 ```
 
-
     
 ![png](08_markov_chains_intro_files/08_markov_chains_intro_10_1.png)
     
-
 
 ## Key Takeaways
 
@@ -569,8 +569,7 @@ PageRank π*: [0.3374 0.1809 0.2578 0.2239]  sum: 1.0
 - **Stationary distributions:** For an ergodic chain, all initial distributions converge to the unique long-run distribution $\pi^*$.  
 - **Absorbing chains:** Transient–absorbing structure leads to closed-form absorption probabilities via the fundamental matrix $N=(I-Q)^{-1}$.  
 - **Markov Reward Processes (MRPs):** Adding rewards and discount yields value functions solving the Bellman equation $v = r + \gamma P v$.  
-- **Policies induce chains:** In an MDP, fixing a policy $\pi(a\|s)$ produces a Markov chain with transition matrix $P^\pi$, laying the foundation for prediction and control in RL.
-
+- **Policies induce chains:** In an MDP, fixing a policy $\pi(a \mid s)$ produces a Markov chain with transition matrix $P^\pi$, laying the foundation for prediction and control in RL.
 
 **Next:** Although the logical next step is `Phase 1 — Fundamentals` (MDPs, Bellman equations, Dynamic Programming, Monte Carlo, TD learning), it’s highly recommended to solidify Phase 0 foundations first through hands-on mini-projects.  
 Start with `09_linear_regression_project.ipynb` to reinforce key ML and numerical concepts before diving into full RL.
