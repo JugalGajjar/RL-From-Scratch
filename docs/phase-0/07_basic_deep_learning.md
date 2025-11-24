@@ -6,7 +6,8 @@ nav_order: 8
 has_toc: true
 ---
 
-# Basic Deep Learning
+
+# **Basic Deep Learning**
 *A practical intro to deep learning building blocks you'll reuse in RL (policies, critics, world models).*
 
 **What you'll learn**
@@ -16,11 +17,13 @@ has_toc: true
 - Regularization (Dropout, Weight Decay) & Normalization (BatchNorm).  
 - RL tie-ins: policies/critics, convolutional encoders for Atari, shared backbones.
 
-> Tip: Read each **Theory** cell first for context, then the code cells.
+> Tip: Read each *Theory* cell first for context, then the code cells.
+
 
 ## Setup
 
 
+**Code:**
 ```python
 import math, time, numpy as np, matplotlib.pyplot as plt
 import torch, torch.nn as nn, torch.nn.functional as F
@@ -32,7 +35,7 @@ device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if 
 device
 ```
 
-Output:
+**Output:**
 ```
 device(type='mps')
 ```
@@ -40,7 +43,7 @@ device(type='mps')
 
 ## 1. Neuron & Activations
 
-At the heart of every neural network lies the **neuron**, a simple computational unit that performs a weighted sum followed by a nonlinear transformation:
+At the heart of every neural network lies the neuron, a simple computational unit that performs a weighted sum followed by a nonlinear transformation:
 
 $$
 y = \phi(w^\top x + b)
@@ -50,7 +53,7 @@ where
 - $ x \in \mathbb{R}^d $ is the input vector,  
 - $ w \in \mathbb{R}^d $ are learnable weights,  
 - $ b $ is a bias term, and  
-- $ \phi(\cdot) $ is the **activation function** introducing nonlinearity.
+- $ \phi(\cdot) $ is the activation function introducing nonlinearity.
 
 ### Common Activation Functions
 - **Sigmoid:**  
@@ -78,7 +81,7 @@ where
   Sparse activations, faster convergence, and widely used — though "dead neurons" can occur when gradients become zero.
 
 ### From Neurons to Networks
-Stacking layers of neurons forms a **Multilayer Perceptron (MLP)**:
+Stacking layers of neurons forms a Multilayer Perceptron (MLP):
 
 $$
 f(x) = W_L \,\phi(\cdots \phi(W_2\,\phi(W_1 x + b_1) + b_2)\cdots) + b_L
@@ -87,11 +90,12 @@ $$
 Each layer learns progressively abstract features, enabling complex function approximation.
 
 ### RL Connection
-- In **policy networks**, the neuron layers map states $s$ to action probabilities $ \pi_\theta(a\|s) $.  
-- In **value networks**, they estimate expected returns $V_\phi(s)$.  
+- In policy networks, the neuron layers map states $s$ to action probabilities $ \pi_\theta(a \mid s) $.  
+- In value networks, they estimate expected returns $V_\phi(s)$.  
 - Nonlinear activations (especially ReLU/tanh) allow the agent to capture nonlinear dynamics, enabling more expressive representations of policies and environment models.
 
 
+**Code:**
 ```python
 # Visualizing activations and their derivatives
 z = np.linspace(-5, 5, 500)
@@ -104,64 +108,61 @@ def drelu(z): return (z>0).astype(float)
 
 plt.figure(figsize=(10,3.5))
 plt.subplot(1,2,1)
-plt.plot(z, sigmoid(z), label="sigmoid"); plt.plot(z, tanh(z), label="tanh"); plt.plot(z, relu(z), 
-label="ReLU")
+plt.plot(z, sigmoid(z), label="sigmoid"); plt.plot(z, tanh(z), label="tanh"); 
+plt.plot(z, relu(z), label="ReLU")
 plt.title("Activations"); plt.legend()
 
 plt.subplot(1,2,2)
-plt.plot(z, dsigmoid(z), label="σ'"); plt.plot(z, dtanh(z), label="tanh'"); plt.plot(z, drelu(z), 
-label="ReLU'")
+plt.plot(z, dsigmoid(z), label="σ'"); plt.plot(z, dtanh(z), label="tanh'"); 
+plt.plot(z, drelu(z), label="ReLU'")
 plt.title("Derivatives"); plt.legend()
 plt.tight_layout(); plt.show()
 ```
-
 
     
 ![png](07_basic_deep_learning_files/07_basic_deep_learning_4_0.png)
     
 
-
 ## 2. MLP Classification on Moons
 
-A **Multilayer Perceptron (MLP)** learns a nonlinear mapping from inputs $ x $ to class probabilities $ p_\theta(y\|x) $. It consists of stacked fully connected layers with activations such as ReLU or tanh, followed by a **softmax** output layer for classification:
+A Multilayer Perceptron (MLP) learns a nonlinear mapping from inputs $ x $ to class probabilities $ p_\theta(y \mid x) $. It consists of stacked fully connected layers with activations such as ReLU or tanh, followed by a softmax output layer for classification:
 
 $$
-p_\theta(y=k|x) = \frac{e^{z_k}}{\sum_{j} e^{z_j}}, \quad \text{where } z = W_L h_{L-1} + b_L
+p_\theta(y=k \mid x) = \frac{e^{z_k}}{\sum_{j} e^{z_j}}, \quad \text{where } z = W_L h_{L-1} + b_L
 $$
 
-The network is trained by minimizing **cross-entropy loss**:
+The network is trained by minimizing cross-entropy loss:
 
 $$
-\mathcal{L}(\theta) = -\frac{1}{N}\sum_{i=1}^{N} \log p_\theta(y_i|x_i)
+\mathcal{L}(\theta) = -\frac{1}{N}\sum_{i=1}^{N} \log p_\theta(y_i \mid x_i)
 $$
 
 This encourages the model to assign high probability to the correct class for each sample.
 
 ### Practical Training Tips
-- Use **mini-batches** to stabilize gradients and accelerate convergence.  
-- Monitor **training vs validation loss** to detect overfitting.  
-- Visualize **decision boundaries** to understand model behavior in low dimensions.
+- Use mini-batches to stabilize gradients and accelerate convergence.  
+- Monitor training vs validation loss to detect overfitting.  
+- Visualize decision boundaries to understand model behavior in low dimensions.
 
 ### Reinforcement Learning Connection
 In RL, policy networks often share the same architecture:
 
 $$
-\pi_\theta(a|s) = \text{softmax}(W_2\,\phi(W_1 s + b_1) + b_2)
+\pi_\theta(a \mid s) = \text{softmax}(W_2\,\phi(W_1 s + b_1) + b_2)
 $$
 
 where the MLP outputs probabilities over actions instead of class labels.  
-Here, minimizing cross-entropy mirrors **maximizing policy likelihood** in policy gradient methods. Similarly, the critic network can be viewed as a regression MLP estimating value functions.
+Here, minimizing cross-entropy mirrors maximizing policy likelihood in policy gradient methods. Similarly, the critic network can be viewed as a regression MLP estimating value functions.
 
 
+**Code:**
 ```python
 # Data: two-moons
 X, y = make_moons(n_samples=2000, noise=0.25, random_state=0)
 X = X.astype(np.float32); y = y.astype(np.int64)
 X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, stratify=y, random_state=42)
-train_dl = DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), batch_size=64, 
-shuffle=True)
-test_dl  = DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), batch_size=256, 
-shuffle=False)
+train_dl = DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), batch_size=64, shuffle=True)
+test_dl  = DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), batch_size=256, shuffle=False)
 
 class MLP(nn.Module):
     def __init__(self, in_dim=2, hid=64, out_dim=2, pdrop=0.0, use_bn=False):
@@ -205,10 +206,10 @@ print({"train": train_hist[-1], "test": test_hist[-1]})
 
 # Curves
 plt.figure(figsize=(10,3.5))
-plt.subplot(1,2,1); plt.plot([l for l,_ in train_hist], label="train")
+plt.subplot(1,2,1); plt.plot([l for l,_ in train_hist], label="train"); 
 plt.plot([l for l,_ in test_hist], label="test")
 plt.title("Loss"); plt.legend()
-plt.subplot(1,2,2); plt.plot([a for _,a in train_hist], label="train")
+plt.subplot(1,2,2); plt.plot([a for _,a in train_hist], label="train"); 
 plt.plot([a for _,a in test_hist], label="test")
 plt.title("Accuracy"); plt.legend(); plt.tight_layout(); plt.show()
 
@@ -229,26 +230,20 @@ def plot_decision_boundary(model, X, y, title="Decision boundary"):
 plot_decision_boundary(model, X_te, y_te, "MLP on two-moons (test)")
 ```
 
-Output:
+**Output:**
 ```
 {'train': (0.18057496857643127, 0.9366666666666666), 'test': (0.14816934299468995, 0.94)}
 ```
 
 
-    
 ![png](07_basic_deep_learning_files/07_basic_deep_learning_6_1.png)
-    
 
-
-
-    
 ![png](07_basic_deep_learning_files/07_basic_deep_learning_6_2.png)
     
 
-
 ## 3. CNN on MNIST
 
-A **Convolutional Neural Network (CNN)** extends the MLP idea to spatial data (like images) by introducing **convolutions** — operations that exploit local spatial structure and reduce parameter count.
+A Convolutional Neural Network (CNN) extends the MLP idea to spatial data (like images) by introducing convolutions — operations that exploit local spatial structure and reduce parameter count.
 
 ### Core Building Blocks
 1. **Convolutional Layer:**
@@ -257,7 +252,7 @@ A **Convolutional Neural Network (CNN)** extends the MLP idea to spatial data (l
    $$
    y_{i,j,k} = \sum_{c} (W_{k,c} * X_c)_{i,j} + b_k
    $$
-   
+
    where $ * $ denotes convolution, $W$ are learnable filters, and $b$ is bias.
 
 2. **Pooling:**
@@ -275,13 +270,14 @@ A **Convolutional Neural Network (CNN)** extends the MLP idea to spatial data (l
 - **Translation tolerance:** Pooling and local connectivity make the network robust to small shifts.
 
 ### Reinforcement Learning Connection
-- In **Atari-style RL**, agents observe raw pixels. CNNs act as **feature extractors**, mapping image frames $s_t$ → latent features $z_t$.  
+- In Atari-style RL, agents observe raw pixels. CNNs act as feature extractors, mapping image frames $s_t$ → latent features $z_t$.  
 - These features then feed into:
-  - A **policy head** $ \pi_\theta(a\|s) $ that outputs action probabilities.
-  - A **value head** $ V_\phi(s) $ estimating expected return.  
+  - A policy head $ \pi_\theta(a \mid s) $ that outputs action probabilities.
+  - A value head $ V_\phi(s) $ estimating expected return.  
 - CNN encoders allow RL agents to learn from visual inputs directly, enabling breakthroughs in environments like Pong, Breakout, and DQN.
 
 
+**Code:**
 ```python
 # Minimal CNN on MNIST
 import torchvision
@@ -339,9 +335,9 @@ for ep in range(5): # keep it light; bump to 10–15 for stronger accuracy
 print("MNIST final:", {"train": mnist_hist["train"][-1], "test": mnist_hist["test"][-1]})
 
 plt.figure(figsize=(10,3.5))
-plt.subplot(1,2,1); plt.plot([l for l,_ in mnist_hist["train"]], label="train")
+plt.subplot(1,2,1); plt.plot([l for l,_ in mnist_hist["train"]], label="train"); 
 plt.plot([l for l,_ in mnist_hist["test"]], label="test"); plt.title("Loss"); plt.legend()
-plt.subplot(1,2,2); plt.plot([a for _,a in mnist_hist["train"]], label="train")
+plt.subplot(1,2,2); plt.plot([a for _,a in mnist_hist["train"]], label="train"); 
 plt.plot([a for _,a in mnist_hist["test"]], label="test"); plt.title("Accuracy"); plt.legend()
 plt.tight_layout(); plt.show()
 
@@ -359,26 +355,20 @@ plt.suptitle("Inputs (top) & first-layer feature maps (bottom)")
 plt.tight_layout(); plt.show()
 ```
 
-Output:
+**Output:**
 ```
 MNIST final: {'train': (0.03260704416930676, 0.9899), 'test': (0.030221648491127417, 0.9903)}
 ```
 
-
     
 ![png](07_basic_deep_learning_files/07_basic_deep_learning_8_1.png)
-    
-
-
-
     
 ![png](07_basic_deep_learning_files/07_basic_deep_learning_8_2.png)
     
 
-
 ## 4. Regularization & Normalization
 
-Deep networks can easily **overfit** or suffer from **unstable optimization**. Regularization and normalization techniques mitigate these problems and improve generalization.
+Deep networks can easily overfit or suffer from unstable optimization. Regularization and normalization techniques mitigate these problems and improve generalization.
 
 ### Weight Decay (L2 Regularization)
 Adds a penalty proportional to the squared magnitude of the weights:
@@ -387,7 +377,7 @@ $$
 \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{task}} + \lambda \|W\|_2^2
 $$
 
-This discourages large weights, improving numerical stability and reducing overfitting. Modern optimizers (e.g., **AdamW**) decouple weight decay from gradient updates for better control.
+This discourages large weights, improving numerical stability and reducing overfitting. Modern optimizers (e.g., AdamW) decouple weight decay from gradient updates for better control.
 
 ### Dropout
 Randomly “drops” activations during training with probability $p$:
@@ -410,17 +400,17 @@ $$
 y = \gamma \hat{x} + \beta
 $$
 
-This reduces **internal covariate shift**, leading to smoother gradients and faster convergence.
+This reduces internal covariate shift, leading to smoother gradients and faster convergence.
 
 ### RL Connection
 - **Weight Decay**: used in nearly all deep RL architectures (DQN, PPO, SAC) for stability.  
-- **Dropout**: helps in **policy regularization** and exploration in small fully connected nets.  
-- **BatchNorm / LayerNorm**: stabilize feature distributions in **value critics** and **transformer-based policies**.  
-  (For instance, PPO and Dreamer often use LayerNorm in latent models.)
+- **Dropout**: helps in policy regularization and exploration in small fully connected nets.  
+- **BatchNorm / LayerNorm**: stabilize feature distributions in value critics and transformer-based policies. (For instance, PPO and Dreamer often use LayerNorm in latent models.)
 
 > **In short:** Regularization prevents overfitting, normalization stabilizes learning — both are pillars of reliable deep and reinforcement learning.
 
 
+**Code:**
 ```python
 # Quick comparison: MLP with/without Dropout & Weight Decay (two-moons)
 def train_mlp(pdrop=0.0, wd=0.0):
@@ -428,10 +418,10 @@ def train_mlp(pdrop=0.0, wd=0.0):
     optm = torch.optim.AdamW(m.parameters(), lr=3e-3, weight_decay=wd)
     hist=[]
     for ep in range(25):
-        tr = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), 
-        batch_size=64, shuffle=True), True)
-        te = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), 
-        batch_size=256, shuffle=False), False)
+        tr = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_tr), torch.from_numpy(y_tr)), batch_size=64, 
+        shuffle=True), True)
+        te = run_epoch(DataLoader(TensorDataset(torch.from_numpy(X_te), torch.from_numpy(y_te)), batch_size=256, 
+        shuffle=False), False)
         hist.append((tr, te))
     return m, hist
 
@@ -453,11 +443,9 @@ plt.tight_layout(); plt.show()
 
 ```
 
-
     
 ![png](07_basic_deep_learning_files/07_basic_deep_learning_10_0.png)
     
-
 
 ## Key Takeaways
 
