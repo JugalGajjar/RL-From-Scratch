@@ -77,14 +77,18 @@ A companion **website** (hosted via **GitHub Pages**) mirrors this repo with cle
 > Learn how agents interact with environments to maximize reward.
 
 **Topics**
-- Agent–Environment Interface  
-- MDPs & Bellman Equations  
-- Dynamic Programming (Policy/Value Iteration)  
-- Monte Carlo & Temporal-Difference Methods  
+- Agent–Environment Interaction  
+- Markov Decision Processes (MDPs)
+- Bellman Expectation & Optimality Equations  
+- Dynamic Programming (Policy/Value Iteration)
+- Monte Carlo Methods  
+- Temporal-Difference (TD) Learning  
 
 **Projects**
-- GridWorld (Policy Iteration)  
-- Blackjack (Monte Carlo Estimation)  
+- Gambler’s Problem (DP + Value Iteration)  
+- Blackjack — Monte Carlo Control
+- Random Walk — TD(0) Learning Curve
+- FrozenLake — Monte Carlo vs TD Comparison  
 
 📁 Folder: [`01-Fundamentals`](./01-Fundamentals)
 
