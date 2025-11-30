@@ -30,7 +30,7 @@ Build your mathematical and programming foundation for Reinforcement Learning.
 - End-to-End Linear Regression  
   → Try it here: [**Linear Regression Project ▸**](../phase-0/09_linear_regression_project.md)
 - Image Classification using CNN \\
-  → Explore here: [**CNN Image Classification ▸**](../phase-0/010_cnn_image_classification_project.md)
+  → Explore here: [**CNN Image Classification ▸**](../phase-0/0A_cnn_image_classification_project.md)
 
 📁 Source folder:  
 [00-Prerequisites](https://github.com/JugalGajjar/RL-From-Scratch/tree/main/00-Prerequisites)
