@@ -172,7 +172,7 @@ plt.show()
 ```
 
  
-![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_8_0.png)
+![png](0A_cnn_image_classification_project_files/0A_cnn_image_classification_project_8_0.png)
     
 
 ### Visualize augmentations of a single raw image
@@ -197,7 +197,7 @@ plt.show()
 ```
 
 
-![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_10_0.png)
+![png](0A_cnn_image_classification_project_files/0A_cnn_image_classification_project_10_0.png)
     
 
 ## 4. Define a CNN Model
@@ -415,7 +415,7 @@ plt.show()
 ```
 
   
-![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_17_0.png)
+![png](0A_cnn_image_classification_project_files/0A_cnn_image_classification_project_17_0.png)
     
 
 ## 6. Test Evaluation & Error Analysis
@@ -463,7 +463,7 @@ plt.show()
 ```
 
     
-![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_20_0.png)
+![png](0A_cnn_image_classification_project_files/0A_cnn_image_classification_project_20_0.png)
     
 
 **Code:**
@@ -521,7 +521,7 @@ Total misclassified: 2303
 ```
 
 
-![png](010_cnn_image_classification_project_files/010_cnn_image_classification_project_22_1.png)
+![png](0A_cnn_image_classification_project_files/0A_cnn_image_classification_project_22_1.png)
     
 
 ## 7. “Deployment” — Gradio UI Interface
