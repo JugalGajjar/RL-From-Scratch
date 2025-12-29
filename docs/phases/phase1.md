@@ -2,6 +2,7 @@
 layout: default
 title: Phase 1 — Fundamentals
 nav_order: 25
+has_toc: false
 ---
 
 # 🎯 Phase 1 — RL Fundamentals
